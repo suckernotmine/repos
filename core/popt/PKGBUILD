@@ -1,0 +1,28 @@
+# Maintainer: Tristan Ross <spaceboyross@yandex.com>
+
+pkgname=popt
+pkgver=5.4.13
+pkgrel=1
+pkgdesc="A commandline option parser"
+arch=('x86_64')
+url="http://rpm5.org"
+license=('custom')
+depends=('glibc')
+options=('staticlibs')
+source=(https://github.com/devzero2000/POPT/archive/rpm-${pkgver}-release.zip)
+sha1sums=('4d4aed3e8265d07526790e01d396ec9ccc9b090a')
+
+build() {
+  cd "${srcdir}/POPT-rpm-${pkgver}-release"
+  NOCONFIGURE=1 ./autogen.sh || true
+  sed -i 's#AM_PROG_MKDIR_P#AC_PROG_MKDIR_P#g' $(grep -r "AM_PROG_MKDIR_P" | cut -d ':' -f1)
+  NOCONFIGURE=1 ./autogen.sh
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "${srcdir}/POPT-rpm-${pkgver}-release"
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 COPYING "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+}
