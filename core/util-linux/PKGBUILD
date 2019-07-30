@@ -1,0 +1,83 @@
+# Maintainer: Tristan Ross <spaceboyross@yandex.com>
+
+pkgbase=util-linux
+pkgname=(util-linux libutil-linux)
+_pkgmajor=2.33
+pkgver=${_pkgmajor}.2
+pkgrel=1
+pkgdesc="Miscellaneous system utilities for Linux"
+url='https://github.com/karelzak/util-linux'
+arch=('x86_64')
+makedepends=('python' 'libcap-ng' 'libselinux')
+license=('GPL2')
+options=('strip' 'debug')
+validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
+source=("https://www.kernel.org/pub/linux/utils/util-linux/v$_pkgmajor/$pkgbase-$pkgver.tar."{xz,sign}
+        'util-linux.sysusers'
+        '60-rfkill.rules')
+sha256sums=('631be8eac6cf6230ba478de211941d526808dba3cd436380793334496013ce97'
+            'SKIP'
+            '10b0505351263a099163c0d928132706e501dd0a008dac2835b052167b14abe3'
+            '7423aaaa09fee7f47baa83df9ea6fef525ff9aec395c8cbd9fe848ceb2643f37')
+
+build() {
+  cd "$pkgbase-$pkgver"
+
+  ./configure \
+    --prefix=/usr \
+    --libdir=/usr/lib \
+    --bindir=/usr/bin \
+    --localstatedir=/var \
+    --enable-fs-paths-default=/usr/bin:/usr/local/bin \
+    --enable-raw \
+    --enable-vipw \
+    --enable-newgrp \
+    --enable-chfn-chsh \
+    --enable-write \
+    --enable-mesg \
+    --with-python=3 \
+    --without-systemd \
+    --with-selinux
+
+  make
+}
+
+package_util-linux() {
+  conflicts=('rfkill')
+  provides=('rfkill')
+  replaces=('rfkill')
+  depends=('pam' 'shadow' 'coreutils' 'libcap-ng' 'libutil-linux')
+  optdepends=('python: python bindings to libmount'
+              'words: default dictionary for look')
+  groups=('base' 'base-devel')
+
+  cd "$pkgbase-$pkgver"
+
+  make DESTDIR="$pkgdir" install
+
+  # setuid chfn and chsh
+  chmod 4755 "$pkgdir"/usr/bin/{newgrp,ch{sh,fn}}
+
+  # adjust for usrmove
+  # TODO(dreisner): fix configure.ac upstream so that this isn't needed
+  cd "$pkgdir"
+  mv {,usr/}sbin/* usr/bin
+  rmdir sbin usr/sbin
+
+  ### runtime libs are shipped as part of libutil-linux
+  rm "$pkgdir"/usr/lib/lib*.{a,so}*
+
+  ### install systemd-sysusers
+  install -Dm644 "$srcdir/util-linux.sysusers" \
+    "$pkgdir/usr/lib/sysusers.d/util-linux.conf"
+
+  install -Dm644 "$srcdir/60-rfkill.rules" \
+    "$pkgdir/usr/lib/udev/rules.d/60-rfkill.rules"
+}
+
+package_libutil-linux() {
+  pkgdesc="util-linux runtime libraries"
+  provides=('libblkid.so' 'libfdisk.so' 'libmount.so' 'libsmartcols.so' 'libuuid.so')
+
+  make -C "$pkgbase-$pkgver" DESTDIR="$pkgdir" install-usrlib_execLTLIBRARIES
+}

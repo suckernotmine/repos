@@ -1,0 +1,140 @@
+# Maintainer: Tristan Ross <spaceboyross@yandex.com>
+
+pkgname=shadow
+pkgver=4.6
+pkgrel=3
+pkgdesc="Password and account management tool suite with support for shadow files and PAM"
+arch=('x86_64')
+url='https://github.com/shadow-maint/shadow'
+license=('BSD')
+groups=('base')
+depends=('zsh' 'pam' 'acl' 'audit' 'libaudit.so' 'libsemanage')
+makedepends=('git' 'libxslt' 'docbook-xsl' 'gnome-doc-utils')
+backup=(etc/login.defs
+        etc/pam.d/{chage,passwd,shadow,useradd,usermod,userdel}
+        etc/pam.d/{chpasswd,newusers,groupadd,groupdel,groupmod}
+        etc/pam.d/{chgpasswd,groupmems}
+        etc/default/useradd)
+options=(strip debug)
+install='shadow.install'
+validpgpkeys=('D5C2F9BFCA128BBA22A77218872F702C4D6E25A8')  # Christian Perrier
+source=("git+https://github.com/shadow-maint/shadow.git#tag=$pkgver"
+        chgpasswd
+        chpasswd
+        defaults.pam
+        login.defs
+        newusers
+        passwd
+        useradd.defaults)
+sha1sums=('SKIP'
+          '2080ba7ad5592c7e8f91ba43909962f194bcbccc'
+          'f9985662f42ff563ebaf3b6fdee0618c20ec8a28'
+          '51722ed0129f442f57b519ead4875093fd81e503'
+          'bf8375658173ecab4eee04f97e03f54530f533a4'
+          'f9985662f42ff563ebaf3b6fdee0618c20ec8a28'
+          '5c9990ea921c20165cc0aee1b7e0f37a9c0e171d'
+          '430b2f5453b854a3cafdd40ad43919f0e1462cb6')
+
+pkgver() {
+  cd "$pkgname"
+
+  git describe
+}
+
+prepare() {
+  cd "$pkgname"
+
+  local backports=(
+    # Fix usermod crash
+    73a876a05612c278da747faeaeea40c3b8d34a53
+    # usermod: prevent a segv
+    48dcf7852e51b9d8e7926737cc7f7823978b7d7d
+    # https://github.com/shadow-maint/shadow/issues/125
+    10e388efc2c786d1ec4ed007891bfefa8826b6fd
+  )
+
+  for commit in "${backports[@]}"; do
+    git cherry-pick -n "$commit"
+  done
+
+  autoreconf -v -f --install
+
+  # supress etc/pam.d/*, we provide our own
+  sed -i '/^SUBDIRS/s/pam\.d//' etc/Makefile.in
+}
+
+build() {
+  cd "$pkgname"
+
+  ./configure \
+    LIBS="-lcrypt" \
+    --prefix=/usr \
+    --bindir=/usr/bin \
+    --sbindir=/usr/bin \
+    --libdir=/usr/lib \
+    --mandir=/usr/share/man \
+    --enable-man \
+    --sysconfdir=/etc \
+    --with-libpam \
+    --with-group-name-max-length=32 \
+    --with-audit \
+    --with-selinux
+
+  make
+}
+
+package() {
+  cd "$pkgname"
+
+  make DESTDIR="$pkgdir" install
+
+  # useradd defaults
+  install -Dm644 "$srcdir/useradd.defaults" "$pkgdir/etc/default/useradd"
+
+  # login.defs
+  install -Dm644 "$srcdir/login.defs" "$pkgdir/etc/login.defs"
+
+  # PAM config - custom
+  install -dm755 "$pkgdir/etc/pam.d"
+  install -t "$pkgdir/etc/pam.d" -m644 "$srcdir"/{passwd,chgpasswd,chpasswd,newusers}
+
+  # PAM config - from tarball
+  install -Dm644 etc/pam.d/groupmems "$pkgdir/etc/pam.d/groupmems"
+
+  # we use the 'useradd' PAM file for other similar utilities
+  for file in chage groupadd groupdel groupmod shadow \
+      useradd usermod userdel; do
+    install -Dm644 "$srcdir/defaults.pam" "$pkgdir/etc/pam.d/$file"
+  done
+
+  # Remove evil/broken tools
+  rm "$pkgdir"/usr/sbin/logoutd
+
+  # Remove utilities provided by util-linux
+  rm \
+      "$pkgdir"/usr/bin/{login,su,chsh,chfn,sg,nologin} \
+      "$pkgdir"/usr/sbin/{vipw,vigr}
+
+  # but we keep newgrp, as sg is really an alias to it
+  mv "$pkgdir"/usr/bin/{newgrp,sg}
+
+  # ...and their many man pages
+  find "$pkgdir"/usr/share/man \
+      '(' -name 'chsh.1'    -o \
+          -name 'chfn.1'    -o \
+          -name 'su.1'      -o \
+          -name 'logoutd.8' -o \
+          -name 'login.1'   -o \
+          -name 'nologin.8' -o \
+          -name 'vipw.8'    -o \
+          -name 'vigr.8'    -o \
+          -name 'newgrp.1' ')' \
+      -delete
+  rmdir \
+      "$pkgdir"/usr/share/man/{fi,id,zh_TW}/man1 \
+      "$pkgdir"/usr/share/man/{fi,ko/man8}
+
+  # move everything else to /usr/bin, because this isn't handled by ./configure
+  mv "$pkgdir"/usr/sbin/* "$pkgdir"/usr/bin
+  rmdir "$pkgdir/usr/sbin"
+}

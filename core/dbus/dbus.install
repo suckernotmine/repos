@@ -1,0 +1,6 @@
+post_install() {
+  if [ ! -e /var/lib/dbus/machine-id ]; then
+    mkdir -p /var/lib/dbus
+    dbus-uuidgen > /var/lib/dbus/machine-id
+  fi
+}

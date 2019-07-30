@@ -1,0 +1,6 @@
+NAME="RonixOS"
+PRETTY_NAME="Ronix"
+ID=ronix
+HOME_URL=https://ronixos.github.io
+VERSION=0.0.3
+VERSION_CODENAME="Kinetic Kendra"
