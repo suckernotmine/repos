@@ -24,7 +24,7 @@ source=(https://sources.archlinux.org/other/pacman/$pkgname-$pkgver.tar.gz{,.sig
         makepkg.conf)
 sha256sums=('10db61a0928d619871340c3f93a677d1541d6c52353c516aec4f8d96e830d4eb'
             'SKIP'
-            '2cc9781ebf57e94e13ece5d93113c3d7d4cc587140c8d8fbc0458cb9186e11b7'
+            'a6c270e391e040ec7801b5d0fcaaadf922f6727217adc132f0a2a61106383158'
             '8442bbb3d1d83f09610e9d687f9121037d97c6acaa06c4e907fc6e9eb0b127ec')
 
 build() {

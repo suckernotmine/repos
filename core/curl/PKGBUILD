@@ -29,7 +29,9 @@ build() {
       --with-gssapi \
       --with-libssh2 \
       --with-random=/dev/urandom \
-      --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt
+      --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt \
+      --without-librtmp \
+      --without-brotli
 
   make
 }
