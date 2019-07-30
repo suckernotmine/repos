@@ -1,0 +1,21 @@
+# Maintainer: Tristan Ross <spaceboyross@yandex.com>
+
+pkgname=pacman-mirrorlist
+pkgver=20190730
+pkgrel=1
+pkgdesc="RonixOS mirror list for pacman"
+arch=('any')
+url="https://ronixos.github.io"
+license=('GPL')
+backup=(etc/pacman.d/mirrorlist)
+source=(mirrorlist)
+sha256sums=(4fa3088855ff2c79453277d0c3b888aceadeac8f7b84aca853d2604e747c4015)
+
+pkgver() {
+  date +%Y%m%d
+}
+
+package() {
+  mkdir -p $pkgdir/etc/pacman.d
+  install -m644 $srcdir/mirrorlist $pkgdir/etc/pacman.d/
+}

@@ -1,0 +1,5 @@
+##
+## RonixOS repository mirror list
+##
+
+Server=file:///home/ross/RonixOS/repo-out/$arch/$repo
