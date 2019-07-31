@@ -25,7 +25,7 @@ validpgpkeys=(
 sha256sums=('SKIP'
             '306da76d34e19444bbd2c78fda7d42c803154a474d6632cc8d292f2c983ff859'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
-            'c043f3033bb781e2688794a59f6d1f7ed49ef9b13eb77ff9a425df33a244a636')
+            '770467896b0752d34ae23d3b6c54446b9767193d5d6108d6d788848539c69a74')
 
 _kernelname=${pkgbase#linux}
 : ${_kernelname:=-RX}
