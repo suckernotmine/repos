@@ -1,7 +1,7 @@
 # Maintainer: Tristan Ross <spaceboyross@yandex.com>
 
 pkgname=rxinitfs
-pkgver=0.1.1
+pkgver=0.1.2
 pkgrel=1
 pkgdesc="The initramfs package for RonixOS"
 url="https://github.com/ronixos/rxinitfs"
