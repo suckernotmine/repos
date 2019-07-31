@@ -15,11 +15,11 @@ sha256sums=('SKIP')
 build() {
   cd "$srcdir/$pkgname"
   mkdir -p template/{bin,dev,lib/modules,newroot,proc,sbin,sys}
-  make PREFIX=$pkgdir/usr
+  make PREFIX=$pkgdir/usr SYSCONFDIR=/etc
   sed -i "s|$pkgdir/|/|g" out/rxinitfs
 }
 
 package() {
   cd "$srcdir/$pkgname"
-  make PREFIX=$pkgdir/usr install
+  make PREFIX=$pkgdir/usr SYSCONFDIR=$pkgdir/etc install
 }
