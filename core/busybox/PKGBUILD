@@ -1,0 +1,39 @@
+# Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Maintainer: Eli Schwartz <eschwartz@archlinux.org>
+# Contributor: Jens Pranaitis <jens@jenux.homelinux.org>
+
+pkgname=busybox
+pkgver=1.30.1
+pkgrel=3
+pkgdesc="Utilities for rescue and embedded systems"
+arch=("x86_64")
+url="https://www.busybox.net"
+license=('GPL')
+makedepends=("ncurses")
+validpgpkeys=('C9E9416F76E610DBD09D040F47B70C55ACC9965B')
+source=("$url/downloads/$pkgname-$pkgver.tar.bz2"{,.sig}
+        "config")
+sha256sums=('3d1d04a4dbd34048f4794815a5c48ebb9eb53c5277e09ffffc060323b95dfbdc'
+            'SKIP'
+            '8061ac8abf822356a865646931fd8ca527688a9b94233925a619e4d81a44b1a1')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  cp "$srcdir"/config .config
+  # reproducible build
+  export KCONFIG_NOTIMESTAMP=1
+  make
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  install -Dm0755 busybox "$pkgdir"/usr/bin/busybox
+
+  # docs
+  install -Dm644 docs/busybox.1 "$pkgdir"/usr/share/man/man1/busybox.1
+  for doc in BusyBox.html BusyBox.txt; do
+    install -Dm644 docs/$doc "$pkgdir"/usr/share/doc/$pkgname/$doc
+  done
+}
