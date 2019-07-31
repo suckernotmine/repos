@@ -1,6 +1,7 @@
 # Maintainer: Tristan Ross <spaceboyross@yandex.com>
 
-pkgname=bash
+pkgbase=bash
+pkgname=(bash bash-dev)
 _basever=5.0
 _patchlevel=007
 pkgver=${_basever}.${_patchlevel}
@@ -15,11 +16,11 @@ depends=('readline>=7.0' glibc ncurses)
 optdepends=('bash-completion: for tab completion')
 provides=('sh')
 source=(https://ftp.gnu.org/gnu/bash/bash-$_basever.tar.gz{,.sig}
-        dot.bashrc
-        dot.bash_profile
-        dot.bash_logout
-        system.bashrc
-        system.bash_logout)
+  dot.bashrc
+  dot.bash_profile
+  dot.bash_logout
+  system.bashrc
+  system.bash_logout)
 validpgpkeys=('7C0135FB088AAF6C66C650B9BB5869F064EA74AB' # Chet Ramey
   '5F5F7705EBC4BADC7A3007D11DCE2C057903C34D') # Tristan Ross <spaceboyross@yandex.com>
 
@@ -42,10 +43,10 @@ build() {
   cd $pkgname-$_basever
 
   _bashconfig=(-DDEFAULT_PATH_VALUE=\'\"/usr/local/sbin:/usr/local/bin:/usr/bin\"\'
-               -DSTANDARD_UTILS_PATH=\'\"/usr/bin\"\'
-               -DSYS_BASHRC=\'\"/etc/bash.bashrc\"\'
-               -DSYS_BASH_LOGOUT=\'\"/etc/bash.bash_logout\"\'
-               -DNON_INTERACTIVE_LOGIN_SHELLS)
+    -DSTANDARD_UTILS_PATH=\'\"/usr/bin\"\'
+    -DSYS_BASHRC=\'\"/etc/bash.bashrc\"\'
+    -DSYS_BASH_LOGOUT=\'\"/etc/bash.bash_logout\"\'
+    -DNON_INTERACTIVE_LOGIN_SHELLS)
   export CFLAGS="${CFLAGS} ${_bashconfig[@]}"
 
   ./configure --prefix=/usr --with-curses --enable-readline \
@@ -57,8 +58,10 @@ check() {
   make -C $pkgname-$_basever check
 }
 
-package() {
+package_bash() {
   make -C $pkgname-$_basever DESTDIR="$pkgdir" install
+  mv "$pkgdir/usr/include" "$srcdir/include"
+  mv "$pkgdir/usr/lib/pkgconfig/" "$srcdir/pkgconfig"
   ln -s bash "$pkgdir/usr/bin/sh"
 
   # system-wide configuration files
@@ -70,6 +73,14 @@ package() {
   install -m644 dot.bashrc "$pkgdir/etc/skel/.bashrc"
   install -m644 dot.bash_profile "$pkgdir/etc/skel/.bash_profile"
   install -m644 dot.bash_logout "$pkgdir/etc/skel/.bash_logout"
+}
+
+package_bash-dev() {
+  pkgdesc+=" (developmental files)"
+  depends=('bash')
+  mkdir -p "$pkgdir/usr/lib"
+  mv "$srcdir/include" "$pkgdir/usr/include"
+  mv "$srcdir/pkgconfig" "$pkgdir/usr/lib/pkgconfig/"
 }
 
 md5sums=('2b44b47b905be16f45709648f671820b'
