@@ -44,7 +44,7 @@ check() {
 package_bzip2() {
   cd "$srcdir/$pkgname-$pkgver"
 
-  install -dm755 $pkgdir/usr/{bin,lib,include,share/man/man1}
+  install -dm755 $pkgdir/usr/{bin,lib,share/man/man1}
 
   install -m755 bzip2-shared $pkgdir/usr/bin/bzip2
   install -m755 bzip2recover bzdiff bzgrep bzmore $pkgdir/usr/bin
