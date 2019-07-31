@@ -69,5 +69,5 @@ package_bzip2-dev() {
   pkgdesc+=" (development files)"
   depends=(bzip2)
   mkdir -p "$pkgdir/usr/include"
-  install -m644 "$srcdir/$pkgname-$pkgver/bzlib.h" "$pkgdir/usr/include"
+  install -m644 "$srcdir/${pkgname/-dev/}-$pkgver/bzlib.h" "$pkgdir/usr/include"
 }
