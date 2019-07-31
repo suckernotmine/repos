@@ -1,6 +1,7 @@
 # Maintainer: Tristan Ross <spaceboyross@yandex.com>
 
-pkgname=cracklib
+pkgbase=cracklib
+pkgname=(cracklib cracklib-dev)
 pkgver=2.9.7
 pkgrel=1
 pkgdesc="Password Checking Library"
@@ -22,12 +23,18 @@ check() {
   make check
 }
 
-package() {
+package_cracklib() {
   cd $srcdir/$pkgname-$pkgver
   make DESTDIR=$pkgdir install
-  # symlink cracklib-small #34778
   mkdir -p $pkgdir/usr/share/dict
   ln -sf /usr/share/cracklib/cracklib-small $pkgdir/usr/share/dict/cracklib-small
-  sh ./util/cracklib-format dicts/cracklib-small \
-    | sh ./util/cracklib-packer $pkgdir/usr/share/cracklib/pw_dict
+  sh ./util/cracklib-format dicts/cracklib-small | sh ./util/cracklib-packer $pkgdir/usr/share/cracklib/pw_dict
+  mv "$pkgdir/usr/include" "$srcdir/include"
+}
+
+package_cracklib-dev() {
+  pkgdesc+=" (development files)"
+  depends=('cracklib')
+  mkdir -p "$pkgdir/usr"
+  mv "$srcdir/include" "$pkgdir/usr/include"
 }
