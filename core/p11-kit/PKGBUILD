@@ -2,14 +2,13 @@
 
 pkgname=p11-kit
 pkgver=0.23.16.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Provides a way to load and enumerate PKCS#11 modules"
 arch=(x86_64)
 url="https://p11-glue.freedesktop.org"
 license=(BSD)
 depends=(glibc libtasn1 libffi)
 makedepends=(gtk-doc git)
-install=p11-kit.install
 source=("git+https://github.com/p11-glue/p11-kit?signed#tag=$pkgver"
         0001-Build-and-install-libnssckbi-p11-kit.so.patch)
 sha256sums=('SKIP'
