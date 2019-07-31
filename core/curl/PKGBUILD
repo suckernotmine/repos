@@ -1,6 +1,7 @@
 # Maintainer: Tristan Ross <spaceboyross@yandex.com>
 
-pkgname=curl
+pkgbase=curl
+pkgname=(curl curl-dev)
 pkgver=7.65.3
 pkgrel=1
 pkgdesc="An URL retrieval utility and library"
@@ -36,7 +37,7 @@ build() {
   make
 }
 
-package() {
+package_curl() {
   cd "$pkgname-$pkgver"
 
   make DESTDIR="$pkgdir" install
@@ -44,4 +45,22 @@ package() {
 
   # license
   install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 COPYING
+
+  mv "$pkgdir/usr/bin/curl-config" "$srcdir/curl-config"
+  mv "$pkgdir/usr/include" "$srcdir/include"
+  mv "$pkgdir/usr/lib/pkgconfig/" "$srcdir/pkgconfig"
+  mv "$pkgdir/usr/share/man/man1/curl-config.1" "$srcdir/man-curl-config.1"
+  mv "$pkgdir/usr/share/man/man3/" "$srcdir/man3"
+}
+
+package_curl-dev() {
+  pkgdesc+=" (development files)"
+  depends=(curl)
+
+  mkdir -p "$pkgdir/usr/share/man/man1" "$pkgdir/usr/lib/" "$pkgdir/usr/bin"
+  mv "$srcdir/curl-config" "$pkgdir/usr/bin/curl-config"
+  mv "$srcdir/include" "$pkgdir/usr/include"
+  mv "$srcdir/pkgconfig" "$pkgdir/usr/lib/pkgconfig/"
+  mv "$srcdir/man-curl-config.1" "$pkgdir/usr/share/man/man1/curl-config.1"
+  mv "$srcdir/man3" "$pkgdir/usr/share/man/man3"
 }
