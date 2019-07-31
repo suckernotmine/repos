@@ -34,9 +34,9 @@ package_attr() {
   cd "$pkgname-$pkgver"
 
   make DESTDIR="${pkgdir}" install
-  mv "$pkgdir/usr/include/" include
-  mv "$pkgdir/usr/lib/pkgconfig/" pkgconfig
-  mv "$pkgdir/usr/share/man/man3/" man3
+  mv "$pkgdir/usr/include/" "$srcdir/include"
+  mv "$pkgdir/usr/lib/pkgconfig/" "$srcdir/pkgconfig"
+  mv "$pkgdir/usr/share/man/man3/" "$srcdir/man3"
 }
 
 package_attr-dev() {
@@ -45,7 +45,7 @@ package_attr-dev() {
 
   cd "${pkgname/-dev/}-$pkgver"
   mkdir -p "$pkgdir/usr/lib" "$pkgdir/usr/share/man"
-  mv include "$pkgdir/usr/include"
-  mv pkgconfig "$pkgdir/usr/lib/pkgconfig"
-  mv man3 "$pkgdir/usr/share/man/man3"
+  mv "$srcdir/include" "$pkgdir/usr/include"
+  mv "$srcdir/pkgconfig" "$pkgdir/usr/lib/pkgconfig"
+  mv "$srcdir/man3" "$pkgdir/usr/share/man/man3"
 }

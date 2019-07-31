@@ -31,10 +31,10 @@ package_acl() {
   cd "$pkgname-$pkgver"
 
   make DESTDIR="${pkgdir}" install
-  mv "$pkgdir/usr/include" include
-  mv "$pkgdir/usr/lib/pkgconfig" pkgconfig
-  mv "$pkgdir/usr/share/man/man3/" man3
-  mv "$pkgdir/usr/share/man/man5/" man5
+  mv "$pkgdir/usr/include" "$srcdir/include"
+  mv "$pkgdir/usr/lib/pkgconfig" "$srcdir/pkgconfig"
+  mv "$pkgdir/usr/share/man/man3/" "$srcdir/man3"
+  mv "$pkgdir/usr/share/man/man5/" "$srcdir/man5"
 }
 
 package_acl-dev() {
@@ -43,7 +43,7 @@ package_acl-dev() {
 
   cd "${pkgname/-dev/}-$pkgver"
   mkdir -p "$pkgdir/"usr/lib "$pkgdir/usr/share/man"
-  mv include "$pkgdir/include"
-  mv pkgconfig "$pkgdir/usr/lib/pkgconfig"
-  mv man{3,5} "$pkgdir/usr/share/man/"
+  mv "$srcdir/include" "$pkgdir/include"
+  mv "$srcdir/pkgconfig" "$pkgdir/usr/lib/pkgconfig"
+  mv "$srcdir/man"{3,5} "$pkgdir/usr/share/man/"
 }
