@@ -1,21 +1,19 @@
 # Maintainer: Tristan Ross <spaceboyross@yandex.com>
 
 pkgname=rxinitfs
-pkgver=0.1.0
-pkgrel=3
+pkgver=0.1.1
+pkgrel=1
 pkgdesc="The initramfs package for RonixOS"
 url="https://github.com/ronixos/rxinitfs"
 arch=("any")
 license=("GPL-3.0")
 groups=("base")
 depends=("sh" "cpio")
-source=("git+https://github.com/ronixos/rxinitfs#tag=v$pkgver" "rxinitfs.diff")
-sha256sums=('SKIP'
-  'd317e2e42d619cdf3ff032f016751c7bdbe3f6400c692e15a0fe86670c9035b3')
+source=("git+https://github.com/ronixos/rxinitfs#tag=v$pkgver")
+sha256sums=('SKIP')
 
 build() {
   cd "$srcdir/$pkgname"
-  patch < "$srcdir/rxinitfs.diff"
   mkdir -p template/{bin,dev,lib/modules,newroot,proc,sbin,sys}
   make PREFIX=$pkgdir/usr
   sed -i "s|$pkgdir/|/|g" out/rxinitfs
