@@ -1,0 +1,24 @@
+# Maintainer: Tristan Ross <spaceboyross@yandex.com>
+
+pkgname=rxinitfs
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="The initramfs package for RonixOS"
+url="https://github.com/ronixos/rxinitfs"
+arch=("any")
+license=("GPL-3.0")
+groups=("base")
+depends=("sh")
+source=("git+https://github.com/ronixos/rxinitfs#tag=v$pkgver")
+sha256sums=('SKIP')
+
+build() {
+  cd "$srcdir/$pkgname"
+  mkdir -p template/{bin,dev,lib/modules,newroot,proc,sbin,sys}
+  make PREFIX=$pkgdir/usr
+}
+
+package() {
+  cd "$srcdir/$pkgname"
+  make PREFIX=$pkgdir/usr install
+}
