@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 repo=$1
 
 pkgCount=$(($(find "$repo" -type d | wc -l) - 1))
@@ -16,7 +18,7 @@ mkdir -p "out/$repo/"
 
 for pkg in ${pkgs[@]}; do
   msg "Building package: $pkg"
-  pushd "$repo/$pkg"
+  pushd "$repo/$pkg" >/dev/null 2>&1
   makepkg
   buildpkgs=$(find . -name "*.pkg.tar.xz")
   for b in ${buildpkgs}; do
@@ -24,7 +26,7 @@ for pkg in ${pkgs[@]}; do
     repo-add "$repo.db.tar.gz" "$b"
   done
   folders=$(find . -type d | tail -$(($(find . -type d | wc -l) - 1)))
-  rm -rf "${folders[@]}"
+  rm -rf "${folders[@]}" >/dev/null 2>&1
   popd
 done
 
