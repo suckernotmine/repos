@@ -2,7 +2,7 @@
 
 pkgname=runit
 pkgver=2.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A replacement for sysvinit, and other init schemes, with service supervision'
 url='http://smarden.org/runit/'
 license=('custom')
@@ -15,17 +15,20 @@ source=("http://smarden.org/runit/runit-$pkgver.tar.gz"
   '1'
   '2'
   '3'
-  'rc.sysinit')
+  'rc.sysinit'
+  'rc.multi')
 sha256sums=('6fd0160cb0cf1207de4e66754b6d39750cff14bb0aa66ab49490992c0c47ba18'
   'd51e713c3b60149c82c897016a6c007065525dfe91384f9b140aec5280b05fd5'
   'd3ba839507835b70458cef1f33593bf65398d56cd12da43551d20b770b3d514a'
   '23e8557456a32c79c2688e656cfde0edde20d2103ba5cc519640cf0d479485ec'
+  'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
   'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855')
 
 backup=('etc/runit/1'
   'etc/runit/2'
   'etc/runit/3'
   'etc/rc.sysinit'
+  'etc/rc.multi'
   'etc/runit/ctrlaltdel'
   'etc/runit/runsvdir/'
   'etc/runit/runsvdir/all'
@@ -104,6 +107,7 @@ package() {
   done
 
   cp "$srcdir/rc.sysinit" "$pkgdir/etc/rc.sysinit"
+  cp "$srcdir/rc.multi" "$pkgdir/etc/rc.multi"
 
   install -Dm0644 package/COPYING "$pkgdir/usr/share/licenses/runit/LICENSE"
 }
