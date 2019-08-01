@@ -65,7 +65,7 @@ index 18acc30..c5bb679 100644
 +disk:x:994:
 +kmem:x:997:
 diff --git a/template/init b/template/init
-index 1998314..34e5555 100755
+index 1998314..26ef1f1 100755
 --- a/template/init
 +++ b/template/init
 @@ -11,12 +11,17 @@ get_opt() {
@@ -81,7 +81,7 @@ index 1998314..34e5555 100755
      fi
    done
 -  find /lib/modules-load/ -name "$1.ko" -print0 | xargs -0 insmod
-+  if ! find /lib/modules-load/ -name "$1.ko" -print0 | xargs -0 insmod >/dev/null; then
++  if ! find /lib/modules-load/ -name "$1.ko" -print0 | xargs -0 insmod >/dev/null 2>&1; then
 +    echo "Failed to load module $1"
 +  fi
  }
