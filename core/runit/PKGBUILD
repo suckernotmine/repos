@@ -2,7 +2,7 @@
 
 pkgname=runit
 pkgver=2.1.2
-pkgrel=0
+pkgrel=1
 pkgdesc='A replacement for sysvinit, and other init schemes, with service supervision'
 url='http://smarden.org/runit/'
 license=('custom')
@@ -12,33 +12,35 @@ depends=('bash' 'util-linux')
 makedepends=('ed')
 install='runit.install'
 source=("http://smarden.org/runit/runit-$pkgver.tar.gz"
-        '1'
-        '2'
-        '3')
+  '1'
+  '2'
+  '3'
+  'rc.sysinit')
 sha256sums=('6fd0160cb0cf1207de4e66754b6d39750cff14bb0aa66ab49490992c0c47ba18'
-            'd51e713c3b60149c82c897016a6c007065525dfe91384f9b140aec5280b05fd5'
-            'd3ba839507835b70458cef1f33593bf65398d56cd12da43551d20b770b3d514a'
-            '23e8557456a32c79c2688e656cfde0edde20d2103ba5cc519640cf0d479485ec')
+  'd51e713c3b60149c82c897016a6c007065525dfe91384f9b140aec5280b05fd5'
+  'd3ba839507835b70458cef1f33593bf65398d56cd12da43551d20b770b3d514a'
+  '23e8557456a32c79c2688e656cfde0edde20d2103ba5cc519640cf0d479485ec'
+  'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855')
 
 backup=('etc/runit/1'
-        'etc/runit/2'
-        'etc/runit/3'
-        'etc/runit/ctrlaltdel'
-        'etc/runit/runsvdir/'
-        'etc/runit/runsvdir/all'
-        'etc/runit/runsvdir/all/getty-1/run'
-        'etc/runit/runsvdir/all/getty-1/finish'
-        'etc/runit/runsvdir/all/getty-2/run'
-        'etc/runit/runsvdir/all/getty-2/finish'
-        'etc/runit/runsvdir/all/getty-3/run'
-        'etc/runit/runsvdir/all/getty-3/finish'
-        'etc/runit/runsvdir/all/getty-4/run'
-        'etc/runit/runsvdir/all/getty-4/finish')
+  'etc/runit/2'
+  'etc/runit/3'
+  'etc/rc.sysinit'
+  'etc/runit/ctrlaltdel'
+  'etc/runit/runsvdir/'
+  'etc/runit/runsvdir/all'
+  'etc/runit/runsvdir/all/getty-1/run'
+  'etc/runit/runsvdir/all/getty-1/finish'
+  'etc/runit/runsvdir/all/getty-2/run'
+  'etc/runit/runsvdir/all/getty-2/finish'
+  'etc/runit/runsvdir/all/getty-3/run'
+  'etc/runit/runsvdir/all/getty-3/finish'
+  'etc/runit/runsvdir/all/getty-4/run'
+  'etc/runit/runsvdir/all/getty-4/finish')
 
 prepare() {
   cd "admin/$pkgname-$pkgver"
 
-  ## we build nothing static
   ed -s src/Makefile <<< $',s/ -static//g\nw'
 
   ## set default service path to /var/service
@@ -100,6 +102,8 @@ package() {
       chmod 0755 "$pkgdir/etc/runit/runsvdir/all/getty-$i/${f##*/}"
     done
   done
+
+  cp "$srcdir/rc.sysinit" "$pkgdir/etc/rc.sysinit"
 
   install -Dm0644 package/COPYING "$pkgdir/usr/share/licenses/runit/LICENSE"
 }
