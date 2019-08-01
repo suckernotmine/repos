@@ -2,7 +2,7 @@
 
 pkgname=busybox
 pkgver=1.30.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Utilities for rescue and embedded systems"
 arch=("x86_64")
 url="https://www.busybox.net"
@@ -13,7 +13,7 @@ source=("$url/downloads/$pkgname-$pkgver.tar.bz2"{,.sig}
   "config")
 sha256sums=('3d1d04a4dbd34048f4794815a5c48ebb9eb53c5277e09ffffc060323b95dfbdc'
   'SKIP'
-  'c061ba926897e377d35c0fddfa2022aac9b27745b97d04748fb87f62bbb8d7b5')
+  'ad260a35bde814633b45d53f3bfbf986ab8d38603ece8170dd225fdf7819c720')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
