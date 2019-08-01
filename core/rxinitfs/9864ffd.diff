@@ -1,3 +1,34 @@
+diff --git a/rxinitfs b/rxinitfs
+index 6b4f632..dc1dd28 100755
+--- a/rxinitfs
++++ b/rxinitfs
+@@ -3,12 +3,24 @@
+ set -e
+ 
+ find_mods() {
+-  find "@LIBDIR@/modules/$(uname -r)/" -name "$1.ko.xz" -print0 -exec cp {} "$2/lib/modules-load/"
++  local f=$(find "@LIBDIR@/modules/" -name "$1.ko.xz")
++  cp "$f" "$2/lib/modules-load/"
+   unxz "$2/lib/modules-load/$1.ko.xz"
+ 
+-  for d in $(modinfo "$2/lib/modules-load/$1.ko.xz" | grep depends | cut -d ':' -f2 | xargs | tr ',' '\n'); do
++  local kernel=$(echo "$f" | cut -d '/' -f4)
++  local f2=$(echo "$f" | sed "s|/lib/modules/$kernel/||g")
++
++  local deps=()
++  for d in $(modinfo "$2/lib/modules-load/$1.ko" | grep depends | cut -d ':' -f2 | xargs | tr ',' '\n'); do
+     find_mods "$d" "$2"
++    local f3=$(find "@LIBDIR@/modules/" -name "$d.ko.xz")
++    local kernel2=$(echo "$f3" | cut -d '/' -f4)
++    deps+=($(echo "$f" | sed "s|/lib/modules/$kernel2/||g"))
+   done
++
++  mkdir -p "$2/$(basename $f)"
++  cp "$f" "$2/$f"
++  echo "$f2: ${deps[@]}" >> "$2/lib/modules/$kernel/modules.dep"
+ }
+ 
+ build_initramfs() {
 diff --git a/template/etc/group b/template/etc/group
 index 18acc30..c5bb679 100644
 --- a/template/etc/group
