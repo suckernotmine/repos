@@ -2,7 +2,7 @@
 
 pkgname=filesystem
 pkgver=0.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Base RonixOS files'
 arch=('x86_64')
 license=('GPL')
@@ -37,7 +37,7 @@ md5sums=('5fa6674df7645d7f5895f2d12b4ef4e9'
          'f64466dd77c7bec37a8b47681468211a'
          '487ac898bd376eccb861f949001d16bb'
          'a51847c012555c843dbdf8df0da171d3'
-         'af7832eabaac9804c22f1f2b53816a49'
+         '6a3494296774369029c644c3e66daa48'
          '0267a3a463f35eec8a31f40a720dfd86'
          '553a478a4baed71000ec08c773be2196')
 

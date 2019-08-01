@@ -25,7 +25,7 @@ build() {
 package() {
 	cd $pkgname-$pkgver
 	make PREFIX="/usr" SYSTEMDCOMPAT=FALSE DESTDIR="$pkgdir" install
-	install -Dm755 openrc/opensysusers.initd "$pkgdir"/etc/openrc/init.d/opensysusers
+  rm -rf "$pkgdir"/etc/
 	install -Dm644 "$srcdir"/opensysusers.hook "$pkgdir"/usr/share/libalpm/hooks/opensysusers.hook
 	install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/opensysusers/license
 }
