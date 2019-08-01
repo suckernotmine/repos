@@ -2,7 +2,7 @@
 
 pkgname=runit
 pkgver=2.1.2
-pkgrel=2
+pkgrel=3
 pkgdesc='A replacement for sysvinit, and other init schemes, with service supervision'
 url='http://smarden.org/runit/'
 license=('custom')
@@ -100,7 +100,7 @@ package() {
     install -dm0755 "$pkgdir/etc/runit/runsvdir/all/getty-$i"
     ln -s ../all/getty-$i "$pkgdir/etc/runit/runsvdir/pkg-default/"
     for f in etc/debian/getty-tty5/*; do
-      sed "s/tty5/tty$i/g;s/getty/a&/g;s/sbin/usr\/bin/g" < "$f" \
+      sed "s/tty5/tty$i/g;s/getty/min&/g;s/sbin/usr\/bin/g" < "$f" \
         > "$pkgdir/etc/runit/runsvdir/all/getty-$i/${f##*/}"
       chmod 0755 "$pkgdir/etc/runit/runsvdir/all/getty-$i/${f##*/}"
     done
