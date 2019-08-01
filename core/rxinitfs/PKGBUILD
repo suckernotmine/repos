@@ -14,7 +14,7 @@ sha256sums=('SKIP' 'c22e52b29a97f7f4586cd6fcde91dfb6ebd25d130355e2d55ea830a00267
 
 build() {
   cd "$srcdir/$pkgname"
-  patch > ../9864ffd.diff
+  patch < ../9864ffd.diff
   mkdir -p template/{bin,dev,lib/modules,newroot,proc,sbin,sys}
   make PREFIX=$pkgdir/usr SYSCONFDIR=/etc
   sed -i "s|$pkgdir/|/|g" out/rxinitfs
