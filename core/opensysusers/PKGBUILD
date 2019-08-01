@@ -9,7 +9,7 @@ pkgdesc="A standalone utility for handling systemd-style sysusers.d users and gr
 arch=('any')
 url="https://github.com/artix-linux/opensysusers"
 license=('custom:BSD2')
-depends=('shadow' 'openrc')
+depends=('shadow')
 groups=('base')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/artix-linux/opensysusers/archive/$pkgver.tar.gz"
   'opensysusers.hook')
@@ -19,7 +19,7 @@ sha256sums=('b0dc09caf5f97a2e9156716809e74835d0fecbf0432c6cec4626a943e8e58bd4'
        
 build() {
   cd $pkgname-$pkgver
-  make PREFIX="/usr" SYSTEMDCOMPAT=FALSE
+  make PREFIX="/usr" SYSTEMDCOMPAT=no HAVEOPENRC=no
 }
             
 package() {
