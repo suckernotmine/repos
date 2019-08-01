@@ -1,13 +1,14 @@
 diff --git a/rxinitfs b/rxinitfs
-index 6b4f632..6d3f04b 100755
+index 6b4f632..3afd87c 100755
 --- a/rxinitfs
 +++ b/rxinitfs
-@@ -3,12 +3,30 @@
+@@ -3,12 +3,31 @@
  set -e
  
  find_mods() {
 -  find "@LIBDIR@/modules/$(uname -r)/" -name "$1.ko.xz" -print0 -exec cp {} "$2/lib/modules-load/"
 +  local f=$(find "@LIBDIR@/modules/" -name "$1.ko.xz")
++  [[ -z "$f" ]] && (>&2 echo "Cannot find module $1") && exit 1
 +  cp "$f" "$2/lib/modules-load/"
    unxz "$2/lib/modules-load/$1.ko.xz"
  
@@ -35,6 +36,22 @@ index 6b4f632..6d3f04b 100755
  }
  
  build_initramfs() {
+@@ -20,7 +39,14 @@ build_initramfs() {
+   cp "@SYSCONFDIR@/rxinitfs.conf" etc/rxinitfs.conf
+   source etc/rxinitfs.conf
+   for m in $MODULES; do
+-    find_mods "$m" "$tempd"
++    if echo "$m" | grep "\*" >/dev/null; then
++      local mods=($(find "@LIBDIR@/modules" -name "$m.ko.xz" | awk -F/ "{print \$(NF)}" | cut -d '.' -f1))
++      for m2 in "${mods[@]}"; do
++        find_mods "$m2" "$tempd"
++      done
++    else
++      find_mods "$m" "$tempd"
++    fi
+   done
+   find . | cpio -H newc -o > "$tempcpio"
+   cd ..
 diff --git a/template/etc/group b/template/etc/group
 index 18acc30..c5bb679 100644
 --- a/template/etc/group
@@ -46,3 +63,22 @@ index 18acc30..c5bb679 100644
 +lp:x:991:
 +disk:x:994:
 +kmem:x:997:
+diff --git a/template/init b/template/init
+index 1998314..6ac953f 100755
+--- a/template/init
++++ b/template/init
+@@ -30,7 +30,13 @@ mknod /dev/tty c 5 0
+ source /etc/rxinitfs.conf
+ echo "Loading modules"
+ for m in $MODULES; do
+-  loadmod $m
++  if echo "$m" | grep "\*" >/dev/null; then
++    for m2 in $(find "/lib/modules" -name "$m.ko.xz" | awk -F/ "{print \$(NF)}" | cut -d '.' -f1); do
++      loadmod "$m2"
++    done
++  else
++    loadmod "$m"
++  fi
+ done
+ 
+ mdev -s

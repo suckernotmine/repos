@@ -10,7 +10,7 @@ license=("GPL-3.0")
 groups=("base")
 depends=("sh" "cpio")
 source=("git+https://github.com/ronixos/rxinitfs#tag=v$pkgver" "9864ffd.diff")
-sha256sums=('SKIP' '01bf16d9b6dced206590c8519f461d8ddf4fcf7c725e2eecf571bd8e2be49e87')
+sha256sums=('SKIP' '9a0cdf534aee80f2247313e546937ebb7f7e64b1b6154a96d90502bba96dd681')
 backup=('etc/rxinitfs.conf')
 
 build() {
