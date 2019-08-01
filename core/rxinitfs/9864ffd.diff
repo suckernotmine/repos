@@ -1,0 +1,11 @@
+diff --git a/template/etc/group b/template/etc/group
+index 18acc30..c5bb679 100644
+--- a/template/etc/group
++++ b/template/etc/group
+@@ -1 +1,6 @@
+ root:x:0:root
++tty:x:5:
++uucp:x:987:
++lp:x:991:
++disk:x:994:
++kmem:x:997:
