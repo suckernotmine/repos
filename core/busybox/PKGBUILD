@@ -13,7 +13,7 @@ source=("$url/downloads/$pkgname-$pkgver.tar.bz2"{,.sig}
   "config")
 sha256sums=('3d1d04a4dbd34048f4794815a5c48ebb9eb53c5277e09ffffc060323b95dfbdc'
   'SKIP'
-  'ad260a35bde814633b45d53f3bfbf986ab8d38603ece8170dd225fdf7819c720')
+  '7c1793570ac5c22c1ee28384eb71aad57ff334105bd504f9fda0558d2b720482')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
