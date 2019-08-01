@@ -1,8 +1,8 @@
 diff --git a/rxinitfs b/rxinitfs
-index 6b4f632..3afd87c 100755
+index 6b4f632..1f0f2e4 100755
 --- a/rxinitfs
 +++ b/rxinitfs
-@@ -3,12 +3,31 @@
+@@ -3,12 +3,32 @@
  set -e
  
  find_mods() {
@@ -10,6 +10,7 @@ index 6b4f632..3afd87c 100755
 +  local f=$(find "@LIBDIR@/modules/" -name "$1.ko.xz")
 +  [[ -z "$f" ]] && (>&2 echo "Cannot find module $1") && exit 1
 +  cp "$f" "$2/lib/modules-load/"
++  [[ -e "$2/lib/modules-load/$1.ko" ]] && return 0
    unxz "$2/lib/modules-load/$1.ko.xz"
  
 -  for d in $(modinfo "$2/lib/modules-load/$1.ko.xz" | grep depends | cut -d ':' -f2 | xargs | tr ',' '\n'); do
@@ -36,7 +37,7 @@ index 6b4f632..3afd87c 100755
  }
  
  build_initramfs() {
-@@ -20,7 +39,14 @@ build_initramfs() {
+@@ -20,7 +40,14 @@ build_initramfs() {
    cp "@SYSCONFDIR@/rxinitfs.conf" etc/rxinitfs.conf
    source etc/rxinitfs.conf
    for m in $MODULES; do
@@ -64,10 +65,29 @@ index 18acc30..c5bb679 100644
 +disk:x:994:
 +kmem:x:997:
 diff --git a/template/init b/template/init
-index 1998314..6ac953f 100755
+index 1998314..34e5555 100755
 --- a/template/init
 +++ b/template/init
-@@ -30,7 +30,13 @@ mknod /dev/tty c 5 0
+@@ -11,12 +11,17 @@ get_opt() {
+ }
+ 
+ loadmod() {
++  if lsmod | grep "$1" >/dev/null; then
++    return 0
++  fi
+   for d in $(find /lib/modules-load/ -name "$1.ko" -print0 | xargs -0 modinfo | grep depends | cut -d ':' -f2 | xargs | tr ',' '\n'); do
+     if ! lsmod | grep $d >/dev/null; then
+       loadmod "$d"
+     fi
+   done
+-  find /lib/modules-load/ -name "$1.ko" -print0 | xargs -0 insmod
++  if ! find /lib/modules-load/ -name "$1.ko" -print0 | xargs -0 insmod >/dev/null; then
++    echo "Failed to load module $1"
++  fi
+ }
+ 
+ mount -t proc proc /proc
+@@ -30,7 +35,13 @@ mknod /dev/tty c 5 0
  source /etc/rxinitfs.conf
  echo "Loading modules"
  for m in $MODULES; do
@@ -82,3 +102,23 @@ index 1998314..6ac953f 100755
  done
  
  mdev -s
+@@ -66,7 +77,11 @@ case "$bootmode" in
+       echo "Dropping into shell"
+       exec sh
+     fi
+-    mount "${root}" /newroot
++    if ! mount "${root}" /newroot; then
++      echo "Failed to mount ${root}"
++      echo "Dropping into shell"
++      exec sh
++    fi
+     if [[ -x "/newroot/${init}" ]] ; then
+ 	    umount /sys /proc
+ 	    exec switch_root /newroot "${init}"
+diff --git a/template/lib/mdev/usbdisk_link b/template/lib/mdev/usbdisk_link
+new file mode 100755
+index 0000000..1a24852
+--- /dev/null
++++ b/template/lib/mdev/usbdisk_link
+@@ -0,0 +1 @@
++#!/bin/sh
