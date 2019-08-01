@@ -53,6 +53,13 @@ index 6b4f632..1f0f2e4 100755
    done
    find . | cpio -H newc -o > "$tempcpio"
    cd ..
+diff --git a/rxinitfs.conf b/rxinitfs.conf
+index bc5b538..7098646 100644
+--- a/rxinitfs.conf
++++ b/rxinitfs.conf
+@@ -1 +1 @@
+-MODULES=""
++MODULES="sd_mod ahci sata_* pata_*"
 diff --git a/template/etc/group b/template/etc/group
 index 18acc30..c5bb679 100644
 --- a/template/etc/group
