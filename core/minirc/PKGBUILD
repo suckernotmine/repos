@@ -3,7 +3,7 @@
 _gitname=minirc
 pkgname=$_gitname
 pkgver=127.128a23f
-pkgrel=1
+pkgrel=2
 pkgdesc="Minimalistic init script"
 arch=('any')
 url="https://github.com/hut/minirc"
