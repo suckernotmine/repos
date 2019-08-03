@@ -12,13 +12,13 @@ groups=('base')
 depends=('busybox' 'sh')
 makedepends=('git')
 optdepends=('eudev: udev implementation'
-            'mdev: udev implementation'
-            'systemd: udev implementation')
+  'mdev: udev implementation'
+  'systemd: udev implementation')
 conflicts=('systemd-sysvcompat' 'sysvinit')
 backup=('etc/inittab' 'etc/minirc.conf')
 install=$_gitname.install
-source=(git://github.com/hut/$_gitname.git)
-md5sums=('SKIP')
+source=(git://github.com/hut/$_gitname.git 'minirc.conf')
+md5sums=('SKIP' '7f04988db721be6f782a431c655430c8')
 
 pkgver() {
   cd $_gitname
@@ -40,4 +40,5 @@ package() {
   for i in FAQ README.md; do
     install -Dm644 $i "$pkgdir"/usr/share/doc/$_gitname/$i
   done
+  cp "$srcdir/minirc.conf" "$pkgdir/etc/minirc.conf"
 }
