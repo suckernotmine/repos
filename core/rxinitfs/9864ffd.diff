@@ -72,7 +72,7 @@ index 18acc30..c5bb679 100644
 +disk:x:994:
 +kmem:x:997:
 diff --git a/template/init b/template/init
-index 1998314..26ef1f1 100755
+index 1998314..acf25e3 100755
 --- a/template/init
 +++ b/template/init
 @@ -11,12 +11,17 @@ get_opt() {
@@ -109,7 +109,25 @@ index 1998314..26ef1f1 100755
  done
  
  mdev -s
-@@ -66,7 +77,11 @@ case "$bootmode" in
+@@ -43,6 +54,9 @@ for i in $(cat /proc/cmdline); do
+ 	case $i in
+ 		root\=*)
+ 			root=$(get_opt $i)
++      if echo "$root" | grep "UUID=" >/dev/null; do
++        root=$(blkid | grep "UUID=\"$(get_opt $root)\"" | cut -d ':' -f1)
++      done
+ 			;;
+ 		init\=*)
+ 			init=$(get_opt $i)
+@@ -59,14 +73,18 @@ case "$bootmode" in
+       echo "Failed to find boot device, listing all block devices with partitions:"
+       pcount=$(($(wc -l /proc/partitions | cut -d ' ' -f1) - 2))
+       if [[ "$pcount" -gt 0 ]]; then
+-        cat /proc/partitions | tail -N +$pcount | awk '{print $NF}' | grep -i "[0-9][0-9]*"
++        cat /proc/partitions | tail -n +$pcount | awk '{print $NF}' | grep -i "[0-9][0-9]*"
+       else
+         echo "No partitions found"
+       fi
        echo "Dropping into shell"
        exec sh
      fi
