@@ -3,7 +3,7 @@
 # toolchain build order: linux-api-headers->glibc->binutils->gcc->binutils->glibc
 # NOTE: libtool requires rebuilt with each new gcc version
 
-pkgname=(gcc gcc-libs gcc-fortran gcc-objc gcc-ada gcc-go lib32-gcc-libs)
+pkgname=(gcc gcc-libs gcc-fortran gcc-objc gcc-ada lib32-gcc-libs)
 pkgver=9.1.0
 _majorver=${pkgver:0:1}
 _islver=0.21
@@ -85,7 +85,7 @@ build() {
       --mandir=/usr/share/man \
       --infodir=/usr/share/info \
       --with-bugurl=https://bugs.archlinux.org/ \
-      --enable-languages=c,c++,ada,fortran,go,lto,objc,obj-c++ \
+      --enable-languages=c,c++,ada,fortran,lto,objc,obj-c++ \
       --enable-shared \
       --enable-threads=posix \
       --with-system-zlib \
@@ -353,7 +353,7 @@ package_gcc-go() {
 package_lib32-gcc-libs() {
   pkgdesc='32-bit runtime libraries shipped by GCC'
   depends=('lib32-glibc>=2.27')
-  provides=(libgo.so libgfortran.so libubsan.so libasan.so)
+  provides=(libgfortran.so libubsan.so libasan.so)
   groups=(multilib-devel)
   options=(!emptydirs !strip)
 
@@ -364,7 +364,6 @@ package_lib32-gcc-libs() {
 
   for lib in libatomic \
              libgfortran \
-             libgo \
              libgomp \
              libitm \
              libquadmath \
