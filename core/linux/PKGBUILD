@@ -10,7 +10,7 @@ url="https://github.com/ronixos/linux"
 license=(GPL2)
 makedepends=(xmlto kmod inetutils bc libelf git)
 options=('!strip')
-_srcname=ronixos-linux
+_srcname=linux
 source=(
   "$_srcname::https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar.xz"
   config         # the main kernel config file
