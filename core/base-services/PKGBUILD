@@ -1,0 +1,25 @@
+# Maintainer: Tristan Ross <spaceboyross@yandex.com>
+
+pkgname=base-services
+pkgver=20190826
+pkgrel=2
+pkgdesc="Base system services for runit"
+arch=('any')
+source=("$pkgname::git+https://github.com/ronixos/base-services")
+sha256sums=('SKIP')
+groups=('base')
+
+pkgver() {
+  date +%Y%m%d
+}
+
+package() {
+  cd "$srcname/$pkgname"
+  install -dm0755 "$pkgdir/etc"
+  install -dm0755 "$pkgdir/etc/sv"
+  for d in *; do
+    [ -f "$d/run" ] && cp -pr $d "$pkgdir/etc/sv/$d"
+  done
+}
+
+# vim:set ts=2 sw=2 et:
