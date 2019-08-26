@@ -2,9 +2,9 @@
 
 pkgbase=linux               # Build stock -RX kernel
 #pkgbase=linux-custom       # Build kernel with a different name
-_srcver=5.0.13
+_srcver=5.2.5
 pkgver=${_srcver//-/.}
-pkgrel=2
+pkgrel=1
 arch=(x86_64)
 url="https://github.com/ronixos/linux"
 license=(GPL2)
@@ -12,7 +12,7 @@ makedepends=(xmlto kmod inetutils bc libelf git)
 options=('!strip')
 _srcname=ronixos-linux
 source=(
-  "$_srcname::git+https://github.com/ronixos/linux.git#commit=a1ca33ccd6731957a0657dd8e8fe12490841a598"
+  "$_srciname::https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar.xz"
   config         # the main kernel config file
   60-linux.hook  # pacman hook for depmod
   90-linux.hook  # pacman hook for initramfs regeneration
