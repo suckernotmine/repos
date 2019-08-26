@@ -3,7 +3,7 @@
 _udev_ver=237
 
 pkgbase=eudev
-pkgname=('eudev' 'libeudev')
+pkgname=('eudev' 'libeudev' 'eudev-dev' 'libeudev-dev')
 pkgver=3.2.5
 pkgrel=0
 arch=('x86_64')
@@ -12,12 +12,8 @@ license=('GPL')
 makedepends=('gobject-introspection' 'gperf' 'gtk-doc' 'intltool' 'kmod')
 options=('!libtool' '!staticlibs')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/gentoo/eudev/archive/v${pkgver}.tar.gz"
-	'initcpio_hooks'
-	'initcpio_install'
   'udev-hwdb.hook')
 sha256sums=('870920011285b919fca5c60eaa5670312eeffe3883dd8cf564cd1179fc639336'
-  '892ce43218e0a458981bbce451252c8987dc398e60b8de288e7542b8f2409c13'
-  '77dd1fd318b4456409aceb077f060b87944defb07cf39d29ad1968dc6f361875'
   '846e9ddbb95c8394ba7efe75107cc1308426921bc042f5d6b48fa4c2dcbac151')
 
 prepare(){
@@ -61,9 +57,11 @@ package_eudev() {
 	rm -v "$pkgdir"/usr/include/libudev.h
 	rm -v "$pkgdir"/usr/lib/libudev*.{so*,a}
 
-	install -Dm644 "${srcdir}/initcpio_hooks" "${pkgdir}/usr/lib/initcpio/hooks/udev"
-	install -Dm644 "${srcdir}/initcpio_install" "${pkgdir}/usr/lib/initcpio/install/udev"
 	install -Dm644 "$srcdir/udev-hwdb.hook" "$pkgdir/usr/share/libalpm/hooks/udev-hwdb.hook"
+
+  # dev split
+  mv "$pkgdir/usr/include" "$srcdir/include"
+  mv "$pkgdir/usr/share/pkgconfig/" "$srcdir/pkgconfig"
 }
 
 package_libeudev() {
@@ -74,4 +72,28 @@ package_libeudev() {
 
 	cd "${srcdir}/${pkgbase}-${pkgver}"
 	make -C src/libudev DESTDIR="$pkgdir" install
+
+  # dev split
+  mv "$pkgdir/usr/include" "$srcdir/libinclude"
+  mv "$pkgdir/usr/lib/pkgconfig/" "$srcdir/libpkgconfig"
 }
+
+package_eudev-dev() {
+  pkgdesc="The userspace dev tools (udev) forked by Gentoo (development files)"
+  depends=(eudev)
+
+  mkdir -p "$pkgdir/usr/lib"
+  mv "$srcdir/include" "$pkgdir/usr/include"
+  mv "$srcdir/pkgconfig" "$pkgdir/usr/share/pkgconfig/"
+}
+
+package_libeudev-dev() {
+  pkgdesc="eudev client libraries (development files)"
+  depends=(libeudev)
+
+  mkdir -p "$pkgdir/usr/lib"
+  mv "$srcdir/libinclude" "$pkgdir/usr/include"
+  mv "$srcdir/libpkgconfig" "$pkgdir/usr/lib/pkgconfig/"
+}
+
+# vim:set ts=2 sw=2 et:
