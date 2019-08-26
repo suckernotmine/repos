@@ -3,6 +3,6 @@ post_install()
  if [ ! -e /etc/runit/runsvdir/current ]
  then
   echo "create neu current runlevel"
-  ln -s pkg-default /etc/runit/runsvdir/current 
+  ln -s all /etc/runit/runsvdir/current 
  fi
 }

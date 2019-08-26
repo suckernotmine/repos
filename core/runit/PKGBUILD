@@ -98,7 +98,6 @@ package() {
   # add gettys for 1-4 terminals
   for i in {1..4}; do
     install -dm0755 "$pkgdir/etc/runit/runsvdir/all/getty-$i"
-    ln -s ../all/getty-$i "$pkgdir/etc/runit/runsvdir/pkg-default/"
     for f in etc/debian/getty-tty5/*; do
       sed "s/tty5/tty$i/g;s/getty/a&/g;s/sbin/usr\/bin/g" < "$f" \
         > "$pkgdir/etc/runit/runsvdir/all/getty-$i/${f##*/}"
