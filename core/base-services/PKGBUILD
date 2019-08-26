@@ -2,7 +2,7 @@
 
 pkgname=base-services
 pkgver=20190826
-pkgrel=2
+pkgrel=1
 pkgdesc="Base system services for runit"
 arch=('any')
 source=("$pkgname::git+https://github.com/ronixos/base-services")
@@ -14,11 +14,12 @@ pkgver() {
 }
 
 package() {
-  cd "$srcname/$pkgname"
+  local d
+  cd "$srcdir/$pkgname"
   install -dm0755 "$pkgdir/etc"
   install -dm0755 "$pkgdir/etc/sv"
-  for d in *; do
-    [ -f "$d/run" ] && cp -pr $d "$pkgdir/etc/sv/$d"
+  for d in $(find . -mindepth 1 -maxdepth 1 -type d); do
+    [ -f "$d/run" ] && cp -pr $d "$pkgdir/etc/sv/$x" || true
   done
 }
 
