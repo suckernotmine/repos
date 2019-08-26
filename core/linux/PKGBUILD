@@ -12,7 +12,7 @@ makedepends=(xmlto kmod inetutils bc libelf git)
 options=('!strip')
 _srcname=ronixos-linux
 source=(
-  "$_srciname::https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar.xz"
+  "$_srcname::https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar.xz"
   config         # the main kernel config file
   60-linux.hook  # pacman hook for depmod
   90-linux.hook  # pacman hook for initramfs regeneration
