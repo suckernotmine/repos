@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if [ -f /usr/lib/sysusers.d/* ]; do
+  for f in /usr/lib/sysusers.d/*; do
+    /usr/bin/sysusers $f
+  done
+fi
+
+if [ -f /etc/sysusers.d/* ]; do
+  for f in /etc/sysusers.d/*; do
+    /usr/bin/sysusers $f
+  done
+fi
+
+if [ -f /run/sysusers.d/* ]; do
+  for f in /run/sysusers.d/*; do
+    /usr/bin/sysusers $f
+  done
+fi
