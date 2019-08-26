@@ -13,7 +13,6 @@ url='https://www.gnu.org/software/bash/bash.html'
 groups=(base)
 backup=(etc/bash.bash{rc,_logout} etc/skel/.bash{rc,_profile,_logout})
 depends=('readline>=7.0' glibc ncurses)
-optdepends=('bash-completion: for tab completion')
 provides=('sh')
 source=(https://ftp.gnu.org/gnu/bash/bash-$_basever.tar.gz{,.sig}
   dot.bashrc
@@ -59,6 +58,7 @@ check() {
 }
 
 package_bash() {
+  optdepends=('bash-completion: for tab completion')
   make -C $pkgname-$_basever DESTDIR="$pkgdir" install
   mv "$pkgdir/usr/include" "$srcdir/include"
   mv "$pkgdir/usr/lib/pkgconfig/" "$srcdir/pkgconfig"
