@@ -2,7 +2,7 @@
 
 pkgname=rxinitfs
 pkgver=0.1.2
-pkgrel=12
+pkgrel=13
 pkgdesc="The initramfs package for RonixOS"
 url="https://github.com/ronixos/rxinitfs"
 arch=("any")
@@ -10,7 +10,7 @@ license=("GPL-3.0")
 groups=("base")
 depends=("sh" "cpio")
 source=("git+https://github.com/ronixos/rxinitfs#tag=v$pkgver" "9864ffd.diff")
-sha256sums=('SKIP' '5516031ee9de8bd97502993a8341b4861e8891b60172e7af878ba37f52d32c3a')
+sha256sums=('SKIP' '17f3479c1013ef6ddf35d604d3bfb84edd1d294173f6af6720829f7fd925d8eb')
 backup=('etc/rxinitfs.conf')
 
 build() {
