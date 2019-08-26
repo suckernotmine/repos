@@ -1,7 +1,7 @@
 # Maintainer: Tristan Ross <spaceboyross@yandex.com>
 
 pkgbase=dbus
-pkgname=(dbus dbus-docs)
+pkgname=(dbus dbus-docs dbus-dev)
 pkgver=1.12.14
 pkgrel=0
 pkgdesc="Freedesktop.org message bus system"
@@ -78,6 +78,12 @@ package_dbus() {
 
   # Split docs
   mv "$pkgdir/usr/share/doc" "$srcdir"
+
+  # split dev
+  mv "$pkgdir/usr/include" "$srcdir/include"
+  mv "$pkgdir/usr/lib/cmake" "$srcdir/cmake"
+  mv "$pkgdir/usr/lib/dbus-1.0/include" "$srcdir/dbus1.0-include"
+  mv "$pkgdir/usr/lib/pkgconfig/" "$srcdir/pkgconfig"
 }
 
 package_dbus-docs() {
@@ -87,6 +93,17 @@ package_dbus-docs() {
   install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 dbus/COPYING
 
   mv doc "$pkgdir/usr/share"
+}
+
+package_dbus-dev() {
+  pkgdesc+=" (development files)"
+  depends=(dbus)
+
+  mkdir "$srcdir/usr/lib/dbus-1.0" -p
+  mv "$srcdir/include" "$pkgdir/usr/include"
+  mv "$srcdir/cmake" "$pkgdir/usr/lib/cmake"
+  mv "$srcdir/dbus1.0-include" "$pkgdir/usr/lib/dbus-1.0/include"
+  mv "$srcdir/pkgconfig" "$pkgdir/usr/lib/pkgconfig/"
 }
 
 # vim:set sw=2 et:
