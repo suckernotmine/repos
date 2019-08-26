@@ -1,7 +1,7 @@
 # Maintainer: Tristan Ross <spaceboyross@yandex.com>
 
 pkgname=pacman-mirrorlist
-pkgver=20190809
+pkgver=20190826
 pkgrel=1
 pkgdesc="RonixOS mirror list for pacman"
 arch=('any')
