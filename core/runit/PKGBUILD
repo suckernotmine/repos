@@ -27,6 +27,7 @@ backup=('etc/runit/1'
   'etc/runit/3'
   'etc/rc.sysinit'
   'etc/rc.multi'
+  'etc/rc.shutdown'
   'etc/runit/ctrlaltdel'
   'etc/runit/runsvdir/'
   'etc/runit/runsvdir/all'
@@ -109,8 +110,12 @@ package() {
 
   install -m0755 "$srcdir/rc.sysinit" "$pkgdir/etc/rc.sysinit"
   chmod +x "$pkgdir/etc/rc.sysinit"
+
   touch "$pkgdir/etc/rc.multi"
   chmod +x "$pkgdir/etc/rc.multi"
+
+  touch "$pkgdir/etc/rc.shutdown"
+  chmod +x "$pkgdir/etc/rc.shutdown"
 }
 
 # vim: ft=sh syn=sh sw=2 ts=2 et
