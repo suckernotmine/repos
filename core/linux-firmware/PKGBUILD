@@ -2,7 +2,7 @@
 
 pkgbase=linux-firmware
 pkgname=(linux-firmware amd-ucode)
-pkgver=20190514.c905899
+pkgver=20190717.bf13a71
 pkgrel=1
 pkgdesc="Firmware files for Linux"
 makedepends=('git')
@@ -11,7 +11,7 @@ url="https://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git;a=su
 license=('GPL2' 'GPL3' 'custom')
 options=(!strip)
 validpgpkeys=('4CDE8575E547BF835FE15807A31B6BD72486CFD6') # Josh Boyer <jwboyer@fedoraproject.org>
-source=('git+https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git#commit=c90589978c10cef1860d2121855febb6c46c33cd')
+source=('git+https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git#commit=62e5fb3d4d038ebec1ccb825785d2b6e5e801645')
 
 prepare() {
   echo ${pkgbase}
