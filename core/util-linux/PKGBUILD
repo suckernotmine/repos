@@ -16,7 +16,6 @@ source=("https://www.kernel.org/pub/linux/utils/util-linux/v$_pkgmajor/$pkgbase-
   pam-{login,common,runuser,su}
   'util-linux.sysusers'
   'util-linux.modules'
-  'util-linux.diff'
   '60-rfkill.rules')
 sha256sums=('631be8eac6cf6230ba478de211941d526808dba3cd436380793334496013ce97'
   'SKIP'
@@ -26,13 +25,10 @@ sha256sums=('631be8eac6cf6230ba478de211941d526808dba3cd436380793334496013ce97'
   '51eac9c2a2f51ad3982bba35de9aac5510f1eeff432d2d63c6362e45d620afc0'
   '10b0505351263a099163c0d928132706e501dd0a008dac2835b052167b14abe3'
   '560ca858961eb997a216ce6b419d900e84688591abf4584ef30c9323ba06fffd'
-  '50ca029c8e1cbeac95918d0c5f642d98a2c85f809367621d29cb1eb49d174593'
   '7423aaaa09fee7f47baa83df9ea6fef525ff9aec395c8cbd9fe848ceb2643f37')
 
 build() {
   cd "$pkgbase-$pkgver"
-
-  patch -Np1 -i "${srcdir}/${pkgbase}.diff" || true
 
   ./configure \
     --prefix=/usr \
