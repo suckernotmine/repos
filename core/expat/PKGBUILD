@@ -1,6 +1,7 @@
 # Maintainer: Tristan Ross <spaceboyross@yandex.com>
 
-pkgname=expat
+pkgbase=expat
+pkgname=(expat expat-dev)
 pkgver=2.2.6
 pkgrel=0
 pkgdesc='An XML parser library'
@@ -22,8 +23,23 @@ check() {
   make -C $pkgname-$pkgver check
 }
 
-package() {
+package_expat() {
   cd $pkgname-$pkgver
   make DESTDIR="$pkgdir" install
   install -Dm644 "-t$pkgdir/usr/share/licenses/$pkgname" COPYING
+
+  # dev split
+  mv "$pkgdir/usr/include" "$srcdir/include"
+  mv "$pkgdir/usr/lib/pkgconfig/" "$srcdir/pkgconfig"
 }
+
+package_expat-dev() {
+  pkgdesc+=" (development files)"
+  depends=(expat)
+
+  mkdir -p "$pkgdir/usr/lib/"
+  mv "$srcdir/include" "$pkgdir/usr/include"
+  mv "$srcdir/pkgconfig" "$pkgdir/usr/lib/pkgconfig/"
+}
+
+# vim:set ts=2 sw=2 et:
