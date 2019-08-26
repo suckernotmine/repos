@@ -32,7 +32,7 @@ sha256sums=('631be8eac6cf6230ba478de211941d526808dba3cd436380793334496013ce97'
 build() {
   cd "$pkgbase-$pkgver"
 
-  patch -Np1 -i "${srcdir}/${pkgbase}.diff"
+  patch -Np1 -i "${srcdir}/${pkgbase}.diff" || true
 
   ./configure \
     --prefix=/usr \
