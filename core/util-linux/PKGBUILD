@@ -15,6 +15,8 @@ validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
 source=("https://www.kernel.org/pub/linux/utils/util-linux/v$_pkgmajor/$pkgbase-$pkgver.tar."{xz,sign}
   pam-{login,common,runuser,su}
   'util-linux.sysusers'
+  'util-linux.modules'
+  'util-linux.diff'
   '60-rfkill.rules')
 sha256sums=('631be8eac6cf6230ba478de211941d526808dba3cd436380793334496013ce97'
   'SKIP'
@@ -23,10 +25,14 @@ sha256sums=('631be8eac6cf6230ba478de211941d526808dba3cd436380793334496013ce97'
   '95b7cdc4cba17494d7b87f37f8d0937ec54c55de0e3ce9d9ab05ad5cc76bf935'
   '51eac9c2a2f51ad3982bba35de9aac5510f1eeff432d2d63c6362e45d620afc0'
   '10b0505351263a099163c0d928132706e501dd0a008dac2835b052167b14abe3'
+  '560ca858961eb997a216ce6b419d900e84688591abf4584ef30c9323ba06fffd'
+  '50ca029c8e1cbeac95918d0c5f642d98a2c85f809367621d29cb1eb49d174593'
   '7423aaaa09fee7f47baa83df9ea6fef525ff9aec395c8cbd9fe848ceb2643f37')
 
 build() {
   cd "$pkgbase-$pkgver"
+
+  patch -Np1 -i "${srcdir}/${pkgbase}.diff"
 
   ./configure \
     --prefix=/usr \
@@ -88,11 +94,11 @@ package_util-linux() {
   rm "$pkgdir"/usr/lib/lib*.{a,so}*
 
   ### install systemd-sysusers
-  install -Dm644 "$srcdir/util-linux.sysusers" \
-    "$pkgdir/usr/lib/sysusers.d/util-linux.conf"
+  install -Dm644 "${srcdir}/${pkgname}.modules" "${pkgdir}/etc/modules-load.d/${pkgname}.conf"
 
-  install -Dm644 "$srcdir/60-rfkill.rules" \
-    "$pkgdir/usr/lib/udev/rules.d/60-rfkill.rules"
+  install -Dm644 "$srcdir/util-linux.sysusers" "$pkgdir/usr/lib/sysusers.d/util-linux.conf"
+
+  install -Dm644 "$srcdir/60-rfkill.rules" "$pkgdir/usr/lib/udev/rules.d/60-rfkill.rules"
 }
 
 package_libutil-linux() {
