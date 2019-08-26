@@ -1,6 +1,7 @@
 # Maintainer: Tristan Ross <spaceboyross@yandex.com>
 
-pkgname=file
+pkgbase=file
+pkgname=(file file-dev)
 pkgver=5.37
 pkgrel=0
 pkgdesc='File type identification utility'
@@ -51,10 +52,21 @@ check() {
   make check
 }
 
-package() {
+package_file() {
   cd $pkgname-$pkgver
   make DESTDIR="$pkgdir" install
   install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+
+  # dev split
+  mv "$pkgdir/usr/include" "$srcdir/include"
+}
+
+package_file-dev() {
+  pkgdesc+=" (development files)"
+  depends=(file)
+
+  mkdir -p "$pkgdir/usr"
+  mv "$srcdir/include" "$pkgdir/usr/include"
 }
 
 # vim:set ts=2 sw=2 et:
