@@ -23,6 +23,8 @@ sha256sums=('6fd0160cb0cf1207de4e66754b6d39750cff14bb0aa66ab49490992c0c47ba18'
 backup=('etc/runit/1'
   'etc/runit/2'
   'etc/runit/3'
+  'etc/rc.sysinit'
+  'etc/rc.multi'
   'etc/runit/ctrlaltdel'
   'etc/runit/runsvdir/'
   'etc/runit/runsvdir/all'
@@ -102,6 +104,11 @@ package() {
   done
 
   install -Dm0644 package/COPYING "$pkgdir/usr/share/licenses/runit/LICENSE"
+
+  touch "$pkgdir/etc/rc.sysinit"
+  chmod +x "$pkgdir/etc/rc.sysinit"
+  touch "$pkgdir/etc/rc.multi"
+  chmod +x "$pkgdir/etc/rc.multi"
 }
 
 # vim: ft=sh syn=sh sw=2 ts=2 et
