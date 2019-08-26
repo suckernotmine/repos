@@ -17,9 +17,11 @@ package() {
   local d
   cd "$srcdir/$pkgname"
   install -dm0755 "$pkgdir/etc"
-  install -dm0755 "$pkgdir/etc/sv"
+  install -dm0755 "$pkgdir/etc/runit"
+  install -dm0755 "$pkgdir/etc/runit/runsvdir"
+  install -dm0755 "$pkgdir/etc/runit/runsvdir/current"
   for d in $(find . -mindepth 1 -maxdepth 1 -type d); do
-    [ -f "$d/run" ] && cp -pr $d "$pkgdir/etc/sv/$x" || true
+    [ -f "$d/run" ] && cp -pr $d "$pkgdir/etc/runit/runsvdir/current/$x" || true
   done
 }
 
