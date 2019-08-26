@@ -5,7 +5,7 @@
 
 pkgname=pam-base
 pkgver=20190105.1
-pkgrel=1
+pkgrel=0
 pkgdesc="SELinux aware base PAM configuration for services"
 arch=('any')
 url="http://www.archlinux.org"

@@ -2,7 +2,7 @@
 
 pkgname=man-db
 pkgver=2.8.6.1
-pkgrel=1
+pkgrel=0
 pkgdesc="A utility for reading man pages"
 arch=('x86_64')
 url="https://www.nongnu.org/man-db/"

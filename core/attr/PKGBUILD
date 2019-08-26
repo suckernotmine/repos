@@ -3,7 +3,7 @@
 pkgbase=attr
 pkgname=(attr attr-dev)
 pkgver=2.4.48
-pkgrel=1
+pkgrel=0
 pkgdesc='Extended attribute support library for ACL support'
 arch=('x86_64')
 url='https://savannah.nongnu.org/projects/attr'

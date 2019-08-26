@@ -2,7 +2,7 @@
 
 pkgname=libtasn1
 pkgver=4.13
-pkgrel=1
+pkgrel=0
 pkgdesc="The ASN.1 library used in GNUTLS"
 arch=('x86_64')
 license=('GPL3' 'LGPL')

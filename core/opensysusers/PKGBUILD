@@ -4,7 +4,7 @@ _url="https://github.com/arch-openrc/opensysusers/archive"
 
 pkgname=opensysusers
 pkgver=0.4.8
-pkgrel=1
+pkgrel=0
 pkgdesc="A standalone utility for handling systemd-style sysusers.d users and groups"
 arch=('any')
 url="https://github.com/artix-linux/opensysusers"

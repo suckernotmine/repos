@@ -2,7 +2,7 @@
 
 pkgname=libpsl
 pkgver=0.21.0
-pkgrel=1
+pkgrel=0
 pkgdesc='Public Suffix List library'
 url='https://github.com/rockdaboot/libpsl'
 arch=('x86_64')

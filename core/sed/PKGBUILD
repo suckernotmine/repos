@@ -2,7 +2,7 @@
 
 pkgname=sed
 pkgver=4.7
-pkgrel=1
+pkgrel=0
 pkgdesc='GNU stream editor'
 arch=('x86_64')
 url='https://www.gnu.org/software/sed/'

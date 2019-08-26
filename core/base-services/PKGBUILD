@@ -2,7 +2,7 @@
 
 pkgname=base-services
 pkgver=20190826
-pkgrel=1
+pkgrel=0
 pkgdesc="Base system services for runit"
 arch=('any')
 source=("$pkgname::git+https://github.com/ronixos/base-services")

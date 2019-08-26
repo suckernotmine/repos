@@ -3,7 +3,7 @@
 pkgname=man-pages
 pkgver=5.02
 _posixver=2013-a
-pkgrel=1
+pkgrel=0
 pkgdesc="Linux man pages"
 arch=('any')
 license=('GPL' 'custom')

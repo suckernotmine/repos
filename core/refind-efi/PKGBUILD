@@ -13,7 +13,7 @@ _PXE='0'
 
 pkgname="refind-efi"
 pkgver="0.11.3"
-pkgrel="1"
+pkgrel=0
 pkgdesc="Rod Smith's fork of rEFIt UEFI Boot Manager"
 url="https://www.rodsbooks.com/refind/index.html"
 arch=('x86_64')

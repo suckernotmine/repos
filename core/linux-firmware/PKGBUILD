@@ -3,7 +3,7 @@
 pkgbase=linux-firmware
 pkgname=(linux-firmware amd-ucode)
 pkgver=20190717.bf13a71
-pkgrel=1
+pkgrel=0
 pkgdesc="Firmware files for Linux"
 makedepends=('git')
 arch=('any')

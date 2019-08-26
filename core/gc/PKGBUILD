@@ -2,7 +2,7 @@
 
 pkgname=gc
 pkgver=7.6.8
-pkgrel=1
+pkgrel=0
 pkgdesc="A garbage collector for C and C++"
 arch=('x86_64')
 url="https://www.hboehm.info/gc/"

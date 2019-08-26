@@ -2,7 +2,7 @@
 
 pkgname=rxinitfs
 pkgver=0.1.2
-pkgrel=13
+pkgrel=0
 pkgdesc="The initramfs package for RonixOS"
 url="https://github.com/ronixos/rxinitfs"
 arch=("any")

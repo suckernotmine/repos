@@ -3,7 +3,7 @@
 pkgname=perl
 pkgver=5.30.0
 _baseversion="${pkgver%.*}"
-pkgrel=3
+pkgrel=0
 pkgdesc="A highly capable, feature-rich programming language"
 arch=(x86_64)
 license=('GPL' 'PerlArtistic')

@@ -2,7 +2,7 @@
 
 pkgname=guile
 pkgver=2.2.6
-pkgrel=1
+pkgrel=0
 pkgdesc='Portable, embeddable Scheme implementation written in C'
 url='https://www.gnu.org/software/guile/'
 arch=(x86_64)

@@ -2,7 +2,7 @@
 
 pkgname=libnftnl
 pkgver=1.1.3
-pkgrel=1
+pkgrel=0
 pkgdesc='Netfilter library providing interface to the nf_tables subsystem'
 arch=('x86_64')
 url='https://netfilter.org/projects/libnftnl/'

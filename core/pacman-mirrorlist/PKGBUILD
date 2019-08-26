@@ -2,7 +2,7 @@
 
 pkgname=pacman-mirrorlist
 pkgver=20190826
-pkgrel=1
+pkgrel=0
 pkgdesc="RonixOS mirror list for pacman"
 arch=('any')
 url="https://ronixos.github.io"

@@ -3,7 +3,7 @@
 pkgbase=cracklib
 pkgname=(cracklib cracklib-dev)
 pkgver=2.9.7
-pkgrel=1
+pkgrel=0
 pkgdesc="Password Checking Library"
 arch=('x86_64')
 license=('GPL')

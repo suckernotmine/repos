@@ -2,7 +2,7 @@
 
 pkgname=grep
 pkgver=3.3
-pkgrel=1
+pkgrel=0
 pkgdesc='A string search utility'
 arch=('x86_64')
 license=('GPL3')

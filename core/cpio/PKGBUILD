@@ -2,7 +2,7 @@
 
 pkgname=cpio
 pkgver=2.12
-pkgrel=4
+pkgrel=0
 pkgdesc="A tool to copy files into or out of a cpio or tar archive"
 arch=(x86_64)
 license=('GPL')
