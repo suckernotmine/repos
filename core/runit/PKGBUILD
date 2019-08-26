@@ -14,11 +14,13 @@ install='runit.install'
 source=("http://smarden.org/runit/runit-$pkgver.tar.gz"
   '1'
   '2'
-  '3')
+  '3'
+  'rc.sysinit')
 sha256sums=('6fd0160cb0cf1207de4e66754b6d39750cff14bb0aa66ab49490992c0c47ba18'
   'd51e713c3b60149c82c897016a6c007065525dfe91384f9b140aec5280b05fd5'
   'd3ba839507835b70458cef1f33593bf65398d56cd12da43551d20b770b3d514a'
-  '23e8557456a32c79c2688e656cfde0edde20d2103ba5cc519640cf0d479485ec')
+  '23e8557456a32c79c2688e656cfde0edde20d2103ba5cc519640cf0d479485ec'
+  'd519c513a74d827ecc6f03f165ee0dc3994c7ab5d982e437fc2e9b0a5111f0e7')
 
 backup=('etc/runit/1'
   'etc/runit/2'
@@ -105,7 +107,7 @@ package() {
 
   install -Dm0644 package/COPYING "$pkgdir/usr/share/licenses/runit/LICENSE"
 
-  touch "$pkgdir/etc/rc.sysinit"
+  install -m0755 "$srcdir/rc.sysinit" "$pkgdir/etc/rc.sysinit"
   chmod +x "$pkgdir/etc/rc.sysinit"
   touch "$pkgdir/etc/rc.multi"
   chmod +x "$pkgdir/etc/rc.multi"
