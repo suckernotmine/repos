@@ -1,19 +1,15 @@
 #!/bin/sh
 
-if [ -f /usr/lib/sysusers.d/* ]; do
-  for f in /usr/lib/sysusers.d/*; do
-    /usr/bin/sysusers $f
-  done
-fi
+addusers() {
+  if [ -d /$1/sysusers.d ]; then
+    pushd /$1/sysusers.d >/dev/null
+    for f in $(find . -mindepth 1 -maxdepth 1 -type f); do
+      /usr/bin/sysusers $f
+    done
+    popd >/dev/null
+  fi
+}
 
-if [ -f /etc/sysusers.d/* ]; do
-  for f in /etc/sysusers.d/*; do
-    /usr/bin/sysusers $f
-  done
-fi
-
-if [ -f /run/sysusers.d/* ]; do
-  for f in /run/sysusers.d/*; do
-    /usr/bin/sysusers $f
-  done
-fi
+addusers usr/lib
+addusers etc
+addusers run

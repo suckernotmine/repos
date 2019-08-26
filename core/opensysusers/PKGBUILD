@@ -16,7 +16,7 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/artix-linux/opensysusers/ar
   'sysusers-hook')
 sha256sums=('4d1bf4657e8a2420d8dcf8da63f86809e3f023603a0940b86e4d10d0f42a0720'
   '5bc748068bb097a4c2b3a765ae683f0db40d70a6caf7ee363e9512dd54bbacc0'
-  '741ba6f9c86fb1a6e99e0594696df8a5663804f819289ad117ef99c650ae1aab')
+  '5d592a7d5f8966f430960bcd08b3e3ad8db6cb406a7152f2976861472722d800')
        
 build() {
   cd $pkgname-$pkgver
