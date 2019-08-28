@@ -1,6 +1,7 @@
 # Maintainer: Tristan Ross <spaceboyross@yandex.com>
 
-pkgname=e2fsprogs
+pkgbase=e2fsprogs
+pkgname=(e2fsprogs e2fsprogs-dev)
 pkgver=1.45.2
 pkgrel=0
 pkgdesc="Ext2/3/4 filesystem utilities"
@@ -41,7 +42,7 @@ build() {
   make
 }
 
-package() {
+package_e2fsprogs() {
   unset MAKEFLAGS
 
   cd "${srcdir}/${pkgname}-${pkgver}"
@@ -55,4 +56,23 @@ package() {
 
   # remove static libraries with a shared counterpart
   rm "${pkgdir}"/usr/lib/lib{com_err,e2p,ext2fs,ss}.a
+
+  rm -rf "$pkgdir/usr/lib/systemd/"
+
+  # dev split
+  mv "$pkgdir/usr/include" "$srcdir/include"
+  mv "$pkgdir/usr/lib/pkgconfig/" "$srcdir/pkgconfig"
+  mv "$pkgdir/usr/share/man/man3/" "$srcdir/man3"
 }
+
+package_e2fsprogs-dev() {
+  pkgdesc+=" (development files)"
+  depends=(e2fsprogs)
+
+  mkdir -p "$pkgdir/usr/share/man" "$pkgdir/usr/lib"
+  mv "$srcdir/include" "$pkgdir/usr/include"
+  mv "$srcdir/pkgconfig" "$pkgdir/usr/lib/pkgconfig/"
+  mv "$srcdir/man3" "$pkgdir/usr/share/man/man3"
+}
+
+# vim:set ts=2 sw=2 et:
