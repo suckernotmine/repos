@@ -2,4 +2,4 @@
 ## RonixOS repository mirror list
 ##
 
-Server=file:///home/ross/RonixOS/repo-out/$arch/$repo
+Server=http://91.247.228.5/repos/$arch/0.1.0/$repo

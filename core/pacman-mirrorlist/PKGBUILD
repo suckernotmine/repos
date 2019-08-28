@@ -9,7 +9,7 @@ url="https://ronixos.github.io"
 license=('GPL')
 backup=(etc/pacman.d/mirrorlist)
 source=(mirrorlist)
-sha256sums=(4fa3088855ff2c79453277d0c3b888aceadeac8f7b84aca853d2604e747c4015)
+sha256sums=(eb875792e0e21e0efee9bf2838dffa83c2a0dc20a46e7597e246a8201933b3e1)
 
 pkgver() {
   date +%Y%m%d
