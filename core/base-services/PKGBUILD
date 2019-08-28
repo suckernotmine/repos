@@ -1,8 +1,8 @@
 # Maintainer: Tristan Ross <spaceboyross@yandex.com>
 
 pkgname=base-services
-pkgver=20190826
-pkgrel=0
+pkgver=20190827
+pkgrel=1
 pkgdesc="Base system services for runit"
 arch=('any')
 source=("$pkgname::git+https://github.com/ronixos/base-services")
