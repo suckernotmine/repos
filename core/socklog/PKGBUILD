@@ -71,10 +71,10 @@ package() {
 
   msg 'Installing Runit service files...'
   mkdir -p "$pkgdir/etc/runit/runsvdir/all"/{klog,socklog/log}
-  install -D -m755 "$srcdir/klog.sv.run" "$pkgdir/etc/runit/runsvdir/all"
-  install -D -m755 "$srcdir/socklog.sv.check" "$pkgdir/etc/runit/runsvdir/all"
-  install -D -m755 "$srcdir/socklog.sv.log" "$pkgdir/etc/runit/runsvdir/all"
-  install -D -m755 "$srcdir/socklog.sv.run" "$pkgdir/etc/runit/runsvdir/all"
+  install -D -m755 "$srcdir/klog.sv.run" "$pkgdir/etc/runit/runsvdir/all/klog"
+  install -D -m755 "$srcdir/socklog.sv.check" "$pkgdir/etc/runit/runsvdir/all/socklog"
+  install -D -m755 "$srcdir/socklog.sv.log" "$pkgdir/etc/runit/runsvdir/all/socklog"
+  install -D -m755 "$srcdir/socklog.sv.run" "$pkgdir/etc/runit/runsvdir/all/socklog"
 }
 
 # vim:set ts=2 sw=2 et:
