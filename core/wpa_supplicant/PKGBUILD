@@ -10,11 +10,13 @@ license=(GPL)
 depends=(openssl libdbus readline libnl)
 install=wpa_supplicant.install
 source=(https://w1.fi/releases/${pkgname}-${pkgver}.tar.gz{,.asc}
-  config)
+  config
+  wpa_supplicant.sv.run)
 validpgpkeys=('EC4AA0A991A5F2464582D52D2B6EF432EFC895FA') # Jouni Malinen
 sha256sums=('fcbdee7b4a64bea8177973299c8c824419c413ec2e3a95db63dd6a5dc3541f17'
   'SKIP'
-  '23aee0597750ec21b37654b5163e2f577c1204fc33bdfbf7bc2fb470e8a467db')
+  '23aee0597750ec21b37654b5163e2f577c1204fc33bdfbf7bc2fb470e8a467db'
+  '17725560c9a0908035c303d4bfc21dedca30b9db8d9ef3ec1b61767991752b4f')
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
@@ -55,6 +57,9 @@ package() {
   install -m644 doc/docbook/*.5 "$pkgdir/usr/share/man/man5/"
   install -m644 doc/docbook/*.8 "$pkgdir/usr/share/man/man8/"
   rm -f "$pkgdir/usr/share/man/man8/wpa_"{priv,gui}.8
+
+  mkdir -p "$pkgdir/etc/sv/wpa_supplicant"
+  install -D -m755 "$srcdir/wpa_supplicant.sv.run" "$pkgdir/etc/sv/wpa_supplicant/run"
 }
 
 # vim:set ts=2 sw=2 et:
