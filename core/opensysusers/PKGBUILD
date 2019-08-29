@@ -13,21 +13,26 @@ depends=('shadow')
 groups=('base')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/artix-linux/opensysusers/archive/$pkgver.tar.gz"
   'opensysusers.hook'
-  'sysusers-hook')
+  'sysusers-hook'
+  'basic.conf')
 sha256sums=('4d1bf4657e8a2420d8dcf8da63f86809e3f023603a0940b86e4d10d0f42a0720'
   '5bc748068bb097a4c2b3a765ae683f0db40d70a6caf7ee363e9512dd54bbacc0'
-  '5d592a7d5f8966f430960bcd08b3e3ad8db6cb406a7152f2976861472722d800')
-       
+  '5d592a7d5f8966f430960bcd08b3e3ad8db6cb406a7152f2976861472722d800'
+  'a25c3841d793b1642e453d27f88afe7bff67d56bdb0716f2e2041bd5fa42bc8a')
+ 
 build() {
   cd $pkgname-$pkgver
   make PREFIX="/usr" SYSTEMDCOMPAT=no HAVEOPENRC=no
 }
             
 package() {
-	cd $pkgname-$pkgver
-	make PREFIX="/usr" SYSTEMDCOMPAT=FALSE DESTDIR="$pkgdir" install
+  cd $pkgname-$pkgver
+  make PREFIX="/usr" SYSTEMDCOMPAT=FALSE DESTDIR="$pkgdir" install
   rm -rf "$pkgdir"/etc/
-	install -Dm644 "$srcdir"/opensysusers.hook "$pkgdir"/usr/share/libalpm/hooks/opensysusers.hook
-	install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/opensysusers/license
+  install -Dm644 "$srcdir"/opensysusers.hook "$pkgdir"/usr/share/libalpm/hooks/opensysusers.hook
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/opensysusers/license
   install -D -m0755 "$srcdir/sysusers-hook" "$pkgdir"/usr/share/libalpm/scripts/sysusers-hook
+  install -Dm644 "$srcdir/basic.conf" "$pkgdir/usr/lib/sysusers.d/basic.conf"
 }
+
+# vim:set ts=2 sw=2 et:
