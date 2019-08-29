@@ -11,8 +11,7 @@ license=(GPL)
 depends=(slang popt gpm)
 makedepends=("tcl>=$_tclver" 'python' 'python2')
 optdepends=('tcl: whiptcl support'
-  'python: libnewt support with the _snack module'
-  'python2: libnewt support with the _snack module')
+  'python: libnewt support with the _snack module')
 options=(!makeflags)
 source=("https://releases.pagure.org/newt/newt-$pkgver.tar.gz")
 sha256sums=('265eb46b55d7eaeb887fca7a1d51fe115658882dfe148164b6c49fccac5abb31')
