@@ -1,0 +1,62 @@
+# Maintainer: Tristan Ross <spaceboyross@yandex.com>
+
+_pkgname=elogind
+_commit=80629b2229c8375866b6a54499b16525a5909cad
+pkgbase=elogind
+pkgname=('elogind' 'libelogind')
+pkgver=241.3
+pkgrel=0
+pkgdesc="The systemd project's logind, extracted to a standalone package"
+arch=('i686' 'x86_64')
+url="https://github.com/elogind/elogind"
+license=('GPL')
+makedepends=('intltool' 'libtool' 'gperf' 'gtk-doc' 'dbus' 'git' 'libcap')
+options=('!libtool')
+source=("elogind-${_commit}.tar.gz::${url}/archive/${_commit}.tar.gz")
+sha256sums=('e238d167408cdfd99fd610c80b7cceda3829f5990b0811b6faa202077117ab51')
+
+build() {
+  cd ${srcdir}
+  local meson_args=(
+    -D split-usr=false
+    -D smack=false
+    -D acl=true
+    -D pam=true
+    -D kdbus=false
+    -D selinux=true
+  )
+  arch-meson "${_pkgname}-${_commit}" build "${meson_args[@]}"
+  ninja -C build
+}
+
+package_elogind() {
+  pkgdesc="The systemd project's logind, extracted to a standalone package"
+  provides=("elogind=${pkgver}")
+  depends=('libelogind' 'pam' 'acl' 'dbus-x11')
+  conflicts=('systemd-sysvcompat' 'consolekit')
+  optdepends=('elogind-openrc: elogind initscript'
+    'dbus-openrc: dbus initscript')
+  install=elogind.install
+
+  cd ${srcdir}
+  DESTDIR="${pkgdir}" meson install -C build
+
+  mkdir ${srcdir}/_libelogind
+  mv -v ${pkgdir}/usr/lib/pkgconfig ${srcdir}/_libelogind
+  mv -v ${pkgdir}/usr/include/ ${srcdir}/_libelogind
+  mv -v ${pkgdir}/usr/lib/libelogind*.so* ${srcdir}/_libelogind
+}
+
+package_libelogind() {
+  pkgdesc="elogind client libraries"
+  provides=('libelogind.so' "libelogind=${pkgver}")
+  depends=('libcap' 'libselinux')
+
+  cd ${_pkgname}-${_commit}
+  install -dm755 ${pkgdir}/usr/lib
+  mv ${srcdir}/_libelogind/include ${pkgdir}/usr
+  mv ${srcdir}/_libelogind/pkgconfig ${pkgdir}/usr/lib
+  mv ${srcdir}/_libelogind/libelogind*.so* ${pkgdir}/usr/lib
+}
+
+# vim:set ts=2 sw=2 et:
