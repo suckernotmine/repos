@@ -39,8 +39,8 @@ build() {
     --enable-experimental \
     --without-systemd \
     --enable-library # this is deprecated
-  grep -r SIGTERM | xargs sed -i "s|SIGTERM|$(grep -r SIGTERM /usr/include/bits/signum-generic.h | xargs | cut -f 3 -d ' ')|g"
-  grep -r SIGINT | xargs sed -i "s|SIGINT|$(grep -r SIGINT /usr/include/bits/signum-generic.h | xargs | cut -f 3 -d ' ')|g"
+  grep -r SIGTERM | cut -f 1 -d ':' | xargs sed -i "s|SIGTERM|$(grep -r SIGTERM /usr/include/bits/signum-generic.h | xargs | cut -f 3 -d ' ')|g"
+  grep -r SIGINT | cut -f 1 -d ':' | xargs sed -i "s|SIGINT|$(grep -r SIGINT /usr/include/bits/signum-generic.h | xargs | cut -f 3 -d ' ')|g"
   make
 }
 
