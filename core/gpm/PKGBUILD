@@ -18,7 +18,7 @@ source=("git+https://github.com/telmich/gpm.git#commit=${_commit}"
 sha256sums=('SKIP'
   '61f901aae46ff79679a058758151dc93901dcd9ea938fabb0765554993b8cb09'
   'f41e90dcf6c0c6c4b8eff1c69039a20eb6b38ea851ffd1fa47ba311bf83d6ed8'
-  'dc7d2463f6670ff2c1646a571ffad51f7c603793c25c6f685efad13cbb444034')
+  '3651bd755b3cbfda710e73a5cd0c26ed67665e0cef2d6d510754ebbe3b6f2ac1')
 
 pkgver() {
   cd "${srcdir}/${pkgname}"
