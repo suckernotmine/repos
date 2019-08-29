@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/gpm -m /dev/input/mice -t imps2
