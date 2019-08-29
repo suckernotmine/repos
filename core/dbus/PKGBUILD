@@ -11,10 +11,12 @@ license=(GPL custom)
 depends=(expat audit)
 makedepends=(xmlto docbook-xsl python yelp-tools doxygen git autoconf-archive graphviz libselinux)
 _commit=a330c6184fe9c7f67495f8d4563b11d51a6dccc7  # tags/dbus-1.12.14^0
-source=("git+https://gitlab.freedesktop.org/dbus/dbus.git#commit=$_commit")
-sha256sums=('SKIP')
+source=("git+https://gitlab.freedesktop.org/dbus/dbus.git#commit=$_commit"
+  dbus-enable-elogind.patch)
+sha256sums=('SKIP'
+  'faffcaa5b295f49fcedeed2c9ece5298949096be3062fd99a4bf1a6ac3ad1ea0')
 validpgpkeys=('DA98F25C0871C49A59EAFF2C4DE8FF2A63C7CC90'  # Simon McVittie <simon.mcvittie@collabora.co.uk>
-              '3C8672A0F49637FE064AC30F52A43A1E4B77B059') # Simon McVittie <simon.mcvittie@collabora.co.uk>
+  '3C8672A0F49637FE064AC30F52A43A1E4B77B059') # Simon McVittie <simon.mcvittie@collabora.co.uk>
 install=dbus.install
 
 pkgver() {
@@ -26,9 +28,8 @@ prepare() {
   cd dbus
 
   # Reduce docs size
-  printf '%s\n' >>Doxyfile.in \
-    HAVE_DOT=yes DOT_IMAGE_FORMAT=svg INTERACTIVE_SVG=yes
-
+  printf '%s\n' >>Doxyfile.in HAVE_DOT=yes DOT_IMAGE_FORMAT=svg INTERACTIVE_SVG=yes
+  patch -Np 1 -i ${srcdir}/dbus-enable-elogind.patch
   NOCONFIGURE=1 ./autogen.sh
 }
 
@@ -53,7 +54,8 @@ build() {
     --disable-checks \
     --without-x \
     --enable-selinux \
-    --enable-libaudit
+    --enable-libaudit \
+    --enable-elogind
   make
 }
 
@@ -99,7 +101,7 @@ package_dbus-dev() {
   pkgdesc+=" (development files)"
   depends=(dbus)
 
-  mkdir "$srcdir/usr/lib/dbus-1.0" -p
+  mkdir "$pkgdir/usr/lib/dbus-1.0" -p
   mv "$srcdir/include" "$pkgdir/usr/include"
   mv "$srcdir/cmake" "$pkgdir/usr/lib/cmake"
   mv "$srcdir/dbus1.0-include" "$pkgdir/usr/lib/dbus-1.0/include"

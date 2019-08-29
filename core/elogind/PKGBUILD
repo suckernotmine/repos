@@ -32,7 +32,7 @@ build() {
 package_elogind() {
   pkgdesc="The systemd project's logind, extracted to a standalone package"
   provides=("elogind=${pkgver}")
-  depends=('libelogind' 'pam' 'acl' 'dbus-x11')
+  depends=('libelogind' 'pam' 'acl' 'dbus')
   conflicts=('systemd-sysvcompat' 'consolekit')
   optdepends=('elogind-openrc: elogind initscript'
     'dbus-openrc: dbus initscript')
