@@ -2,5 +2,5 @@ NAME="RonixOS"
 PRETTY_NAME="Ronix"
 ID=ronix
 HOME_URL=https://ronixos.github.io
-VERSION=0.0.5
+VERSION=0.1.0
 VERSION_CODENAME="Kinetic Kendra"

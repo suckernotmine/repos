@@ -10,37 +10,37 @@ url='https://ronixos.github.io'
 groups=('base')
 depends=('iana-etc')
 backup=('etc/crypttab' 'etc/fstab' 'etc/group' 'etc/gshadow' 'etc/host.conf'
-        'etc/hosts' 'etc/issue' 'etc/ld.so.conf' 'etc/motd' 'etc/nsswitch.conf'
-        'etc/passwd' 'etc/profile' 'etc/resolv.conf' 'etc/securetty'
-        'etc/shadow' 'etc/shells' 'etc/hostname')
+  'etc/hosts' 'etc/issue' 'etc/ld.so.conf' 'etc/motd' 'etc/nsswitch.conf'
+  'etc/passwd' 'etc/profile' 'etc/resolv.conf' 'etc/securetty'
+  'etc/shadow' 'etc/shells' 'etc/hostname')
 source=('crypttab' 'env-generator' 'fstab' 'group' 'gshadow' 'host.conf' 'hosts'
-        'issue' 'ld.so.conf' 'locale.sh' 'motd' 'nsswitch.conf' 'os-release'
-        'passwd' 'profile' 'resolv.conf' 'securetty' 'shadow' 'shells' 'sysctl'
-        'sysusers' 'tmpfiles' 'ronixos.png')
+  'issue' 'ld.so.conf' 'locale.sh' 'motd' 'nsswitch.conf' 'os-release'
+  'passwd' 'profile' 'resolv.conf' 'securetty' 'shadow' 'shells' 'sysctl'
+  'sysusers' 'tmpfiles' 'ronixos.png')
 md5sums=('5fa6674df7645d7f5895f2d12b4ef4e9'
-         '2b0344e9639f35f3c0d5637a23556089'
-         'e33f6dfdd61978fcb3ddf1431286e05a'
-         '7fed1e1fb855e41a6d64d41f8521d69a'
-         '1c1e3b08acfa286f4b417c49de3e4366'
-         '7d119a9cce152aa182fb3392ddeecea7'
-         'a1315ea3e2b64d197b6efaf9c14ff778'
-         '7cd0a9b47538a05b1fbc0b87090a1cc8'
-         '5deb9f890a4d08a245e9752ede77271e'
-         '6157d6b5893cf2f989ab800b4e418c45'
-         'd41d8cd98f00b204e9800998ecf8427e'
-         '981ee4d7e506a9d6d9ed2d872e16004b'
-         '86f8122d1157d01c966fc000a872650e'
-         '24f0f91e0dfb052bc5d307612f4e51b6'
-         '447c0bbf309823a6fe6702daa0bf70f2'
-         '0ee015fad07732676d9488ae498eed41'
-         'f04bcb2803afc4dcb95670fe87343b4d'
-         'f64466dd77c7bec37a8b47681468211a'
-         '487ac898bd376eccb861f949001d16bb'
-         'a51847c012555c843dbdf8df0da171d3'
-         '6a3494296774369029c644c3e66daa48'
-         '0267a3a463f35eec8a31f40a720dfd86'
-         '553a478a4baed71000ec08c773be2196')
-
+  '2b0344e9639f35f3c0d5637a23556089'
+  'e33f6dfdd61978fcb3ddf1431286e05a'
+  '7fed1e1fb855e41a6d64d41f8521d69a'
+  '1c1e3b08acfa286f4b417c49de3e4366'
+  '7d119a9cce152aa182fb3392ddeecea7'
+  'a1315ea3e2b64d197b6efaf9c14ff778'
+  '7cd0a9b47538a05b1fbc0b87090a1cc8'
+  '5deb9f890a4d08a245e9752ede77271e'
+  '6157d6b5893cf2f989ab800b4e418c45'
+  'd41d8cd98f00b204e9800998ecf8427e'
+  '981ee4d7e506a9d6d9ed2d872e16004b'
+  '06e9c4e6916110347d5cf10619ade28d'
+  '24f0f91e0dfb052bc5d307612f4e51b6'
+  '447c0bbf309823a6fe6702daa0bf70f2'
+  '0ee015fad07732676d9488ae498eed41'
+  'f04bcb2803afc4dcb95670fe87343b4d'
+  'f64466dd77c7bec37a8b47681468211a'
+  '487ac898bd376eccb861f949001d16bb'
+  'a51847c012555c843dbdf8df0da171d3'
+  '6a3494296774369029c644c3e66daa48'
+  '0267a3a463f35eec8a31f40a720dfd86'
+  '553a478a4baed71000ec08c773be2196')
+        
 package() {
   cd "$pkgdir"
 
