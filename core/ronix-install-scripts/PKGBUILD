@@ -11,7 +11,8 @@ depends=('awk' 'bash' 'coreutils' 'pacman' 'util-linux')
 makedepends=('asciidoc' 'git')
 source=("git+https://github.com/ronixos/ronix-install-scripts.git#tag=v$pkgver"
   "rxchroot.patch")
-sha256sums=('SKIP')
+sha256sums=('SKIP'
+  'f6506cb81f95c8ae5cf02b14a92fa791e9a1f4e06cf12d65bcb57df15ce80b0c')
 
 prepare() {
   cd "$srcdir"
