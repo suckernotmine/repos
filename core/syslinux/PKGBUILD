@@ -35,7 +35,7 @@ source=(git+https://repo.or.cz/syslinux.git#commit=$_commit
   0016-strip-gnu-property.patch
   0018-prevent-pow-optimization.patch)
 sha1sums=('SKIP'
-  '1145f454bd297d373ad123425f93620c3e92f585'
+  'da7ee3877730d8918c3c34619b2742f1de303455'
   'df5160a138ca8c6502d67fe1a64fec78b50e82c2'
   '69239fda4a3d5a247f0e48c5c683e0124c7d9201'
   '1e0cd52252622f206d22e84f2a4d358508c902f4'
