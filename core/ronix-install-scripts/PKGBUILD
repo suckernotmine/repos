@@ -9,13 +9,8 @@ url="https://github.com/ronixos/ronix-install-scripts.git"
 license=('GPL')
 depends=('awk' 'bash' 'coreutils' 'pacman' 'util-linux')
 makedepends=('asciidoc' 'git')
-source=("git+https://github.com/ronixos/ronix-install-scripts.git?signed#tag=v$pkgver")
+source=("git+https://github.com/ronixos/ronix-install-scripts.git#tag=v$pkgver")
 md5sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-  git describe | sed s,^v,,
-}
 
 build() {
   make -C "$pkgname"
