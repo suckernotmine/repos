@@ -9,8 +9,14 @@ url="https://github.com/ronixos/ronix-install-scripts.git"
 license=('GPL')
 depends=('awk' 'bash' 'coreutils' 'pacman' 'util-linux')
 makedepends=('asciidoc' 'git')
-source=("git+https://github.com/ronixos/ronix-install-scripts.git#tag=v$pkgver")
-md5sums=('SKIP')
+source=("git+https://github.com/ronixos/ronix-install-scripts.git#tag=v$pkgver"
+  "rxchroot.patch")
+sha256sums=('SKIP')
+
+prepare() {
+  cd "$srcdir"
+  patch -Np1 < ../rxchroot.patch
+}
 
 build() {
   make -C "$pkgname"

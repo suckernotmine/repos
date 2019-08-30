@@ -1,0 +1,11 @@
+diff --git a/doc/rxchroot.8.asciidoc b/doc/rxchroot.8.asciidoc
+index f5c860e..08bdf7e 100644
+--- a/doc/rxchroot.8.asciidoc
++++ b/doc/rxchroot.8.asciidoc
+@@ -1,5 +1,5 @@
+ rxchroot(8)
+-==============
++===========
+ 
+ Name
+ ----
