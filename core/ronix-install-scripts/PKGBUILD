@@ -1,0 +1,32 @@
+# Maintainer: Tristan Ross <spaceboyross@yandex.com>
+
+pkgname=ronix-install-scripts
+pkgver=1
+pkgrel=0
+pkgdesc="Scripts to help install RonixOS"
+arch=('any')
+url="https://github.com/ronixos/ronix-install-scripts.git"
+license=('GPL')
+depends=('awk' 'bash' 'coreutils' 'pacman' 'util-linux')
+makedepends=('asciidoc' 'git')
+source=("git+https://github.com/ronixos/ronix-install-scripts.git?signed#tag=v$pkgver")
+md5sums=('SKIP')
+
+pkgver() {
+  cd "$pkgname"
+  git describe | sed s,^v,,
+}
+
+build() {
+  make -C "$pkgname"
+}
+
+check() {
+  make -C "$pkgname" check
+}
+
+package() {
+  make -C "$pkgname" PREFIX=/usr DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:
