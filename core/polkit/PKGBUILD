@@ -2,8 +2,8 @@
 
 _pkgname=polkit
 pkgname=polkit
-pkgver=0.113+29+g3272a98
-pkgrel=0
+pkgver=0.115+41+g941e932
+pkgrel=1
 pkgdesc="PolyciKit with elogind support for non-systemd systems"
 arch=('i686' 'x86_64')
 url="http://www.freedesktop.org/wiki/Software/polkit"
@@ -15,12 +15,10 @@ conflicts=('polkit' 'polkit-consolekit')
 # replaces=('polkit-consolekit')
 options=('!libtool')
 install=polkit.install
-_commit=3272a988655c3236b55bad70e9a3af20857f384b
+_commit=941e9329f8d3d43ace8335d206365b212824e686
 #source=("http://www.freedesktop.org/software/polkit/releases/$_pkgname-$pkgver.tar.gz")
-source=("git+https://anongit.freedesktop.org/git/polkit#commit=$_commit"
-  'polkit-0.114-elogind.patch')
-sha256sums=('SKIP'
-  'e5eb83a8922f1540309ce5884c4bd40b2972aa75778da945e2392501961a860b')
+source=("git+https://anongit.freedesktop.org/git/polkit#commit=$_commit")
+sha256sums=('SKIP')
 
 pkgver() {
   cd $_pkgname
@@ -29,7 +27,6 @@ pkgver() {
 
 prepare() {
   cd $_pkgname #-$pkgver
-  patch -Np 1 -i ${srcdir}/polkit-0.114-elogind.patch
   NOCONFIGURE=1 ./autogen.sh
 }
 
@@ -46,7 +43,7 @@ build() {
     --disable-static \
     --enable-gtk-doc \
     --with-authfw=pam \
-    --with-os-type=gentoo
+    --with-os-type=redhat
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }

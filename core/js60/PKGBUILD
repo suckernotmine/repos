@@ -52,8 +52,8 @@ build() {
 
   cd firefox-$pkgver/obj
   export PYTHON=/usr/bin/python2
-  sh ../js/src/configure "${configure_args[@]}"
-  make
+  SHELL=/bin/bash sh ../js/src/configure "${configure_args[@]}"
+  SHELL=/bin/bash make
 }
 
 check() {
@@ -67,12 +67,12 @@ check() {
     basic
   )
   cd firefox-$pkgver/obj
-  make -C js/src check-jstests check-jit-test JSTESTS_EXTRA_ARGS="${jstests_extra_args[*]}" JITTEST_EXTRA_ARGS="${jittest_extra_args[*]}" JITTEST_TEST_ARGS="${jittest_test_args[*]}"
+  SHELL=/bin/bash make -C js/src check-jstests check-jit-test JSTESTS_EXTRA_ARGS="${jstests_extra_args[*]}" JITTEST_EXTRA_ARGS="${jittest_extra_args[*]}" JITTEST_TEST_ARGS="${jittest_test_args[*]}"
 }
 
 package() {
   cd firefox-$pkgver/obj
-  make DESTDIR="$pkgdir" install
+  SHELL=/bin/bash make DESTDIR="$pkgdir" install
   rm "$pkgdir"/usr/lib/*.ajs
   find "$pkgdir"/usr/{lib/pkgconfig,include} -type f -exec chmod -c a-x {} +
 }
