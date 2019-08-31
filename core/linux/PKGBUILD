@@ -2,7 +2,7 @@
 
 pkgbase=linux               # Build stock -RX kernel
 #pkgbase=linux-custom       # Build kernel with a different name
-_srcver=5.2.5
+_srcver=5.2.11
 pkgver=${_srcver//-/.}
 pkgrel=0
 arch=(x86_64)
@@ -22,10 +22,10 @@ validpgpkeys=(
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
   '8218F88849AAC522E94CF470A5E9288C4FA415FA'  # Jan Alexander Steffens (heftig)
 )
-sha256sums=('SKIP'
-            '16459a96607499e5b594588a81cf9761ca689aec124220160c693166033f3c48'
-            'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
-            '770467896b0752d34ae23d3b6c54446b9767193d5d6108d6d788848539c69a74')
+sha256sums=('0c2a831f993dc8a8a8e1ca4186b467de72ff173c6f5855e2aab70f6f7fb033f9'
+  '16459a96607499e5b594588a81cf9761ca689aec124220160c693166033f3c48'
+  'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
+  '770467896b0752d34ae23d3b6c54446b9767193d5d6108d6d788848539c69a74')
 
 _kernelname=${pkgbase#linux}
 : ${_kernelname:=-RX}

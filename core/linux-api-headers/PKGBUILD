@@ -3,7 +3,7 @@
 # toolchain build order: linux-api-headers->glibc->binutils->gcc->binutils->glibc
 
 pkgname=linux-api-headers
-pkgver=5.2.5
+pkgver=5.2.11
 pkgrel=0
 pkgdesc='Kernel headers sanitized for use in userspace'
 arch=(any)
@@ -11,9 +11,9 @@ url='http://www.gnu.org/software/libc'
 license=(GPL2)
 source=(https://www.kernel.org/pub/linux/kernel/v${pkgver:0:1}.x/linux-${pkgver}.tar.{xz,sign})
 md5sums=('563ddd6b9f8022c2f881b441bee55844'
-         'SKIP')
+  'SKIP')
 validpgpkeys=('ABAF11C65A2970B130ABE3C479BE3E4300411886'   # Linus Torvalds
-              '647F28654894E3BD457199BE38DBBDC86092693E')  # Greg Kroah-Hartman
+   '647F28654894E3BD457199BE38DBBDC86092693E')  # Greg Kroah-Hartman
 
 build() {
   cd linux-$pkgver
@@ -32,3 +32,5 @@ package() {
   # clean-up unnecessary files generated during install
   find "$pkgdir" \( -name .install -o -name ..install.cmd \) -delete
 }
+
+# vim:set ts=2 sw=2 et:
