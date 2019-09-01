@@ -32,11 +32,12 @@ build() {
 package_elogind() {
   pkgdesc="The systemd project's logind, extracted to a standalone package"
   provides=("elogind=${pkgver}")
-  depends=('libelogind' 'pam' 'acl' 'dbus')
+  depends=('libelogind' 'pam' 'acl')
   conflicts=('systemd-sysvcompat' 'consolekit')
   optdepends=('elogind-openrc: elogind initscript'
     'dbus-openrc: dbus initscript')
   install=elogind.install
+  groups=(base)
 
   cd ${srcdir}
   DESTDIR="${pkgdir}" meson install -C build

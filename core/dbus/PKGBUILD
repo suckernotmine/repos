@@ -8,7 +8,7 @@ pkgdesc="Freedesktop.org message bus system"
 url="https://wiki.freedesktop.org/www/Software/dbus/"
 arch=(x86_64)
 license=(GPL custom)
-depends=(expat audit)
+depends=(expat audit elogind)
 makedepends=(xmlto docbook-xsl python yelp-tools doxygen git autoconf-archive graphviz libselinux)
 _commit=a330c6184fe9c7f67495f8d4563b11d51a6dccc7  # tags/dbus-1.12.14^0
 source=("git+https://gitlab.freedesktop.org/dbus/dbus.git#commit=$_commit"
