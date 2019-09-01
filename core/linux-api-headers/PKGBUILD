@@ -10,7 +10,7 @@ arch=(any)
 url='http://www.gnu.org/software/libc'
 license=(GPL2)
 source=(https://www.kernel.org/pub/linux/kernel/v${pkgver:0:1}.x/linux-${pkgver}.tar.{xz,sign})
-md5sums=('563ddd6b9f8022c2f881b441bee55844'
+md5sums=('e6eda726e4a122b9f5d05b6fc97bbab5'
   'SKIP')
 validpgpkeys=('ABAF11C65A2970B130ABE3C479BE3E4300411886'   # Linus Torvalds
    '647F28654894E3BD457199BE38DBBDC86092693E')  # Greg Kroah-Hartman
