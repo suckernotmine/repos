@@ -30,6 +30,8 @@ package() {
   cd $pkgname-$pkgver
   make DESTDIR="$pkgdir/" install
   cd "$pkgdir/usr/lib"
-  ln libnettle.so libnettle.so.7
-  ln libhogweed.so libhogweed.so.5
+  ln -s libnettle.so libnettle.so.7
+  ln -s libhogweed.so libhogweed.so.5
 }
+
+# vim:set ts=2 sw=2 et:
