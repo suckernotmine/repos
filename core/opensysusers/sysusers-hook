@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 addusers() {
   if [ -d /$1/sysusers.d ]; then
     pushd /$1/sysusers.d >/dev/null
@@ -9,6 +11,10 @@ addusers() {
     popd >/dev/null
   fi
 }
+
+pushd /usr/lib/sysusers.d/
+  /usr/bin/sysusers basic.conf
+popd
 
 addusers usr/lib
 addusers etc

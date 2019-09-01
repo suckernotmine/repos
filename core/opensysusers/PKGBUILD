@@ -17,9 +17,9 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/artix-linux/opensysusers/ar
   'basic.conf')
 sha256sums=('4d1bf4657e8a2420d8dcf8da63f86809e3f023603a0940b86e4d10d0f42a0720'
   '5bc748068bb097a4c2b3a765ae683f0db40d70a6caf7ee363e9512dd54bbacc0'
-  '5d592a7d5f8966f430960bcd08b3e3ad8db6cb406a7152f2976861472722d800'
-  'a25c3841d793b1642e453d27f88afe7bff67d56bdb0716f2e2041bd5fa42bc8a')
- 
+  '41b8005105b4e9ef77f0301e200e0d19464dcffa17ff131145dd9505207b587d'
+  'c6c0ee94c7a02e2c9f3c55ec3014c9eca7332d38e98c67f294b85a32ae8b6132')
+
 build() {
   cd $pkgname-$pkgver
   make PREFIX="/usr" SYSTEMDCOMPAT=no HAVEOPENRC=no
