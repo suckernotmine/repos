@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec /usr/bin/httpd -k start -DFOREGROUND
