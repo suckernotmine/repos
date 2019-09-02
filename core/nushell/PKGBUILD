@@ -19,7 +19,7 @@ build() {
 
 package() {
   cd "$pkgname-$pkgver"
-  cargo install --no-track --locked --features rawkey,clipboard --root "${pkgdir}"/usr --path "./" -Z install-upgrade
+  cargo install --locked --features rawkey,clipboard --root "${pkgdir}"/usr --path "./"
 }
 
 # vim:set ts=2 sw=2 et:
