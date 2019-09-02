@@ -1,0 +1,30 @@
+# Maintainer: Tristan Ross <spaceboyross@yandex.com>
+
+pkgname=pkgtop
+pkgdesc="Interactive package manager & resource monitor"
+pkgver=1.5
+pkgrel=0
+arch=('any')
+url="https://github.com/keylo99/pkgtop"
+license=('GPL3')
+depends=('git')
+makedepends=('go')
+source=("$pkgtop::https://github.com/keylo99/pkgtop/archive/$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cd "$srcdir/${pkgname}/src"
+  go get -d ./...
+  go build \
+    -gcflags "all=-trimpath=$PWD" \
+    -asmflags "all=-trimpath=$PWD" \
+    -ldflags "-extldflags $LDFLAGS" \
+    -o "${pkgname}" .
+}
+
+package() {
+  cd "$srcdir/${pkgname}/src"
+  install -Dm755 "${pkgname}" "$pkgdir/usr/bin/${pkgname}"
+}
+
+# vim:set ts=2 sw=2 et:
