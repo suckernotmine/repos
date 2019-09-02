@@ -3,7 +3,7 @@
 pkgname=nushell
 pkgver=0.2.0
 pkgrel=4
-makedepends=('rust' 'cargo')
+makedepends=('rust-nightly' 'cargo')
 depends=('openssl' 'zlib')
 optdepends=('libxcb' 'libx11')
 arch=('x86_64')
@@ -19,7 +19,7 @@ build() {
 
 package() {
   cd "$pkgname-$pkgver"
-  cargo install --locked --features rawkey,clipboard --root "${pkgdir}"/usr --path "./"
+  cargo +nightly install --no-track --locked --features rawkey,clipboard --root "${pkgdir}"/usr --path "./" -Z install-upgrade
 }
 
 # vim:set ts=2 sw=2 et:
